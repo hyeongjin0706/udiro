@@ -10,7 +10,7 @@ import * as festaRepository from '../../data/culture/festa.js';
 //}
 
 export async function getFestas(req, res) {
-  const data = await getAll();
+  const data = await festaRepository.getAll();
   res.status(200).json(data);
 }
 
@@ -35,6 +35,16 @@ export async function getFestaTitle(req, res, next) {
   }
 }
 
+export async function getFestaGuname(req, res, next) {
+  const guname = req.params.guname;
+  const culture = await festaRepository.getAllByGuname(guname);
+  if (culture) {
+    res.status(200).json(culture);
+  } else {
+    res.status(404).json({ message: `festa_Guname(${guname}) not found` });
+  }
+}
+
 // 생성
 export async function CreateFesta(req, res, next) {
   const { CODENAME } = req.body;
@@ -51,7 +61,9 @@ export async function updateFesta(req, res, next) {
   const culture = await festaRepository.getByPK(festa_NUM);
   // update 와 delete 에 특정토큰만 접근가능하게 만들기
   if (!culture) {
-    res.status(404).json({ message: `festa_NUM(${festa_NUM})not found` });
+    res
+      .status(404)
+      .json({ message: `update : festa_NUM(${festa_NUM})not found` });
   }
   const updated = await festaRepository.update(festa_NUM, CODENAME);
   res.status(200).json(updated);
@@ -62,7 +74,9 @@ export async function deleteFesta(req, res, next) {
   const festa_NUM = req.params.festa_NUM;
   const culture = await festaRepository.getByPK(festa_NUM);
   if (!culture) {
-    res.status(404).json({ message: `festa_NUM(${festa_NUM}) not found` });
+    res
+      .status(404)
+      .json({ message: `delete : festa_NUM(${festa_NUM}) not found` });
   }
   await festaRepository.remove(festa_NUM);
   res.sendStatus(204);

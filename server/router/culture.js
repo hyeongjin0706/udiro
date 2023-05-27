@@ -6,7 +6,6 @@ import festaRouter from './culture/festa.js';
 
 const router = express.Router();
 
-
 // router.use('/main', mainRouter);
 
 router.use('/festa', festaRouter);

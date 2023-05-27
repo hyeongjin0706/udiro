@@ -115,6 +115,7 @@ export async function getAllByGuname(GUNAME) {
     },
   });
 }
+
 export async function getAllByTitle(title) {
   return culture_festa.findAll({
     ...ORDER_DESC,
