@@ -19,7 +19,7 @@ router.get('/', festaController.getFestas);
 router.get('/:place_NUM', festaController.getFesta);
 
 // 이름으로 찾는거 없어서 대충 넣어둠
-router.get('/:title', festaController.getFestaTitle);
+router.get('/:fac_name', festaController.getFesta);
 
 // POST
 router.post('/', festaController.CreateFesta);

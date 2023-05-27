@@ -1,5 +1,5 @@
 import express from 'express';
-import * as festaController from '../../controller/culture/festa.js';
+import * as placeController from '../../controller/culture/place.js';
 // import { body } from 'express-validator';
 // import { validate } from "../middleware/validator.js";
 // import { isAuth } from "../middleware/auth.js";
@@ -13,21 +13,20 @@ const router = express.Router();
 // ];
 
 // GET
-router.get('/', festaController.getFestas);
+router.get('/', placeController.getPlaces);
 
 // GET
-router.get('/:place_NUM', festaController.getFesta);
+router.get('/:place_NUM', placeController.getPlace);
 
-// 이름으로 찾는거 없어서 대충 넣어둠
-router.get('/:title', festaController.getFestaTitle);
+router.get('/:fac_name', placeController.getPlaceByFac_name);
 
 // POST
-router.post('/', festaController.CreateFesta);
+router.post('/', placeController.CreatePlace);
 
 // PUT
-router.put('/:place_NUM', festaController.updateFesta);
+router.put('/:place_NUM', placeController.UpdatePlace);
 
 // DELETE
-router.delete('/:place_NUM', festaController.deleteFesta);
+router.delete('/:place_NUM', placeController.deletePlace);
 
 export default router;

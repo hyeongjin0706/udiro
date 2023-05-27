@@ -5,18 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>조회 좋아요 기능있는 메인페이지</title>
-    <link rel="icon" type="image/png" href="../../../assets/images/logo/udiro_logo_1.png">
+    <title>장소페이지</title>
     <link rel="stylesheet" href="../public/css/culture3.css">
     <link rel="stylesheet" href="../../css/culture/culture.css">
     <link rel="stylesheet" href="../../css/public.css">
     <link rel="stylesheet" href="../../css/publicPost.css">
     <script defer src="../../js/culture/culture.js" defer></script>
-    <script src="../../js/culture/culture_main.js" defer></script>
+    <script src="../../js/culture/place.js" defer></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440d4850306225a19c1ade5724a9c73d&libraries=services"></script>
 </head>
 
 <body>
-
     <!-- 헤더 -->
     <header id="header" class="header">
         <!-- 헤더 로고 -->
@@ -37,7 +38,6 @@
         <!-- 로그인, 회원가입 끝 -->
     </header>
     <!-- 헤더 끝 -->
-
 
     <div id="big__container">
         <!-- 사이드 바 -->
@@ -120,152 +120,49 @@
 
         <!-- 문화정보 - 서울의 문화를 더 알고 싶다면 시작 -->
         <div id="container">
-
             <div class="image-container">
                 <div class="backgroundimage">
                     <h2 class="mainimagetext1">문화정보</h2>
                     <p class="mainimagetext2">서울의 문화를 더 알고 싶다면</p>
                 </div>
             </div>
-
             <!-- 문화정보 - 서울의 문화를 더 알고 싶다면 끝 -->
 
-            <!-- 지역 / 기간 / 분야 / 검색 표 시작 -->
-            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-            <style>
-                .custom-datepicker {
-                    height: 300px;
-                }
-
-                .custom-datepicker .ui-datepicker-calendar {
-                    background-color: #fff;
-                    border: 1px solid #ccc;
-                }
-            </style>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-            <script>
-                var datepicker1, datepicker2;
-
-                $(document).ready(function () {
-                    datepicker1 = $("#datepicker1").datepicker({
-                        beforeShow: function (input, inst) {
-                            inst.dpDiv.addClass("custom-datepicker");
-                        },
-                        onClose: function () {
-                            $("#datepicker2").datepicker("show");
-                        }
-                    }).hide();
-                    datepicker2 = $("#datepicker2").datepicker({
-                        beforeShow: function (input, inst) {
-                            inst.dpDiv.addClass("custom-datepicker");
-                        },
-                        beforeShowDay: function (date) {
-                            var startDate = datepicker1.datepicker("getDate");
-                            var endDate = datepicker2.datepicker("getDate");
-                            if (startDate && !endDate) {
-                                return [true, "selected-range"];
-                            } else if (startDate && endDate && date >= startDate && date <= endDate) {
-                                return [true, "selected-range"];
-                            }
-                            return [true, ""];
-                        }
-                    }).hide();
-                });
-
-                function setPlaceholder(selectedValue) {
-                    var inputElement = document.getElementById("inputField");
-
-                    if (selectedValue === "지역") {
-                        inputElement.placeholder = "지역을 입력하세요";
-                        inputElement.type = "text";
-                        hideDatepickers();
-                    } else if (selectedValue === "제목") {
-                        inputElement.placeholder = "제목을 입력하세요";
-                        inputElement.type = "text";
-                        hideDatepickers();
-                    } else if (selectedValue === "내용") {
-                        inputElement.placeholder = "내용을 입력하세요";
-                        inputElement.type = "text";
-                        hideDatepickers();
-                    } else if (selectedValue === "기간") {
-                        inputElement.placeholder = "";
-                        inputElement.type = "hidden";
-                        showDatepickers();
-                    } else {
-                        inputElement.placeholder = "";
-                        inputElement.type = "text";
-                        hideDatepickers();
-                    }
-                }
-
-                function showDatepickers() {
-                    datepicker1.show();
-                    datepicker2.show();
-                    $("#date-range-separator").show();
-                }
-
-                function hideDatepickers() {
-                    datepicker1.hide();
-                    datepicker2.hide();
-                    datepicker1.val("");
-                    datepicker2.val("");
-                    $("#date-range-separator").hide();
-                }
-            </script>
-            <table>
-                <tbody>
-                    <tr>
-                        <td class="lengthlarger">
-                            <select name="searchregion" style="width:10%; height:50%; float:left; left:30px; ">
-                                <option value="전체">전체</option>
-                                <option value="행사">행사</option>
-                                <option value="장소">장소</option>
-                            </select>
-                            <select onchange="setPlaceholder(this.value)"
-                                style="width:15%; height:50%; float:left; left:70px">
-                                <option value="지역" name="지역">지역</option>
-                                <option value="제목" name="제목">제목</option>
-                                <option value="내용" name="내용">내용</option>
-                                <option value="기간" name="기간">기간</option>
-                            </select>
-                            <input type="text" id="inputField" style="width:15%; height:50%; width:500px;">
-                            <input type="text" id="datepicker1" placeholder="시작 날짜"
-                                style="width:15%; height:50%; width:250px; right:20px;">
-                            <input type="text" id="datepicker2" placeholder="종료 날짜"
-                                style="width:15%; height:50%; width:250px; left:20px;">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <!-- 지역 / 기간 / 분야 / 검색 표 끝 -->
-
-            <!-- 공연,행사, 축제 시작 -->
-            <div class="performancehead" id="culture_festa">
-                <div class="event_festival">
-                    <div class="heading">행사</div>
-                    <div class="showMore" id="festa_more"><a href="./culture_festa.html">더보기</a></div>
+            <!-- 문화정보- 간략 내용 시작 -->
+            <div class="intro-top clearfix">
+                <div class="img-box">
+                    <img src="../event/festa.PNG" style="background-size: cover;">
                 </div>
-                <div class="festival__container">
+                <div class="txt-box">
                 </div>
             </div>
+            <!-- 문화정보- 간략 내용 끝 -->
 
-            <div class="performancehead" id="culture_place">
-                <div class="event_place">
-                    <div class="heading">장소</div>
-                    <div class="showMore" id="place_more"><a id="cplce" href="./culture_place.html">더보기</a></div>
-                </div>
-                <div class="place__container">
-                </div>
+            <section class="intro-section common-section">
+                <h2> 상세보기 </h2>
+            </section>
+            <div class="moreview">
             </div>
-            <!-- 공연, 행사, 축제 끝-->
+            <section class="loca-section common-section" id="loca-section">
+                <div id="map" style="width:100%; height:600px; margin-bottom: 60px;"></div>
+                <script>
+                    var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+                    var options = { //지도를 생성할 때 필요한 기본 옵션
+                        /*center: new kakao.maps.LatLng(${ data.X_COORD }, ${ data.Y_COORD }), //지도의 중심좌표.*/
+                        level: 3 //지도의 레벨(확대, 축소 정도)
+                    };
+                    var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+                </script>`;
+            </section>
+            <div class="list-btn" style="text-align:center;">
+                <a href="http://127.0.0.1:5501/client/culture/culture_main.html">목록으로</a>
+            </div>
         </div>
-        <!-- 전체 컨테이너 끝 -->
         <div id="centerGo"></div>
+
     </div>
-    <script src="../public/js/location/header2.js"></script>
-    <script src="./culture.js"></script>
+    <!-- 전체 컨테이너 끝 -->
+    <script src="../../public/js/location/header2.js"></script>
 </body>
 
 </html>
