@@ -46,15 +46,6 @@ export async function login(req, res) {
     res.status(200).json({ token, user_id });
 }
 
-export async function findId(req, res, next) {
-    const { user_name, user_phone } = req.body;
-    const user = await (userRepository.searchByNameHP(user_name, user_phone));
-    if (!user) {
-        return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
-    }
-    res.status(200).json({ token: req.token, user_id: user.user_id });
-}
-
 // export async function deleteById(req, res, next) {
 //     const { user_id } = req.body;
 //     const user = await (userRepository.searchById(user_id));
@@ -82,18 +73,6 @@ export async function deleteById(req, res, next) {
     await userRepository.deleteUser(id); // deleteUser -> deleteById로 변경
     res.sendStatus(204);
 };
-
-
-
-export async function findPw(req, res, next) {
-    const { user_id, user_phone } = req.body;
-    const user = await (userRepository.searchByIdHP(user_id, user_phone));
-    if (!user) {
-        return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
-    }
-    const token = createJwtToken(user.user_idx);
-    res.status(200).json({ token, user_id: user.user_id });
-}
 
 export async function updatePw(req, res, next) {
 
@@ -140,38 +119,6 @@ export async function C_updateMypage(req, res, next) {
     }
 }
 
-
-
-
-
-
-export async function me(req, res, next) {
-    const user = await (userRepository.searchByIdx(req.user_idx));
-    if (!user) {
-        return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
-    }
-    res.status(200).json({ token: req.token, user_id: user.user_id });
-}
-
-
-
-
-
-function createJwtToken(idx) {
-    return jwt.sign({ idx }, config.jwt.secretKey, { expiresIn: config.jwt.expiresInSec });
-}
-
-
-function getRandomPW() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-    let password = '';
-    for (let i = 0; i < 8; i++) {
-        const randomIndex = Math.floor(Math.random() * chars.length);
-        password += chars.charAt(randomIndex);
-    }
-    return password;
-}
-
 export async function findId(req, res, next) {
     const { user_name, user_phone } = req.body;
     const user = await (userRepository.searchByNameHP(user_name, user_phone));
@@ -204,4 +151,26 @@ export async function findPw(req, res, next) {
     const hashed = await (bcrypt.hash(password, config.bcrypt.saltRound));
     const message = `${user.user_name}님의 메일로 새롭게 설정한 비밀번호가 발송되었습니다!`;
     return res.status(200).json({ message });
+}
+
+export async function me(req, res, next) {
+    const user = await (userRepository.searchByIdx(req.user_idx));
+    if (!user) {
+        return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
+    }
+    res.status(200).json({ token: req.token, user_id: user.user_id });
+}
+
+function createJwtToken(idx) {
+    return jwt.sign({ idx }, config.jwt.secretKey, { expiresIn: config.jwt.expiresInSec });
+}
+
+function getRandomPW() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+    let password = '';
+    for (let i = 0; i < 8; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        password += chars.charAt(randomIndex);
+    }
+    return password;
 }

@@ -5,6 +5,9 @@ const app = express();
 app.set('view engine', 'ejs'); //view engine이 사용할 Template Engine
 app.use(express.static('public'));
 
+app.get("/", (req, res) => {
+    res.render("index.ejs");
+})
 
 app.use((req, res, next) => {
     res.sendStatus(404)

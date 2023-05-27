@@ -1,11 +1,9 @@
 import express from 'express';
-import * as culture from '../controller/culture.js';
+import * as festaController from '../../controller/culture/festa.js';
 // import { body } from 'express-validator';
 // import { validate } from "../middleware/validator.js";
 // import { isAuth } from "../middleware/auth.js";
-
 const router = express.Router();
-
 // const validateCulture = [
 //     body('culture_content')
 //         .trim()
@@ -15,19 +13,21 @@ const router = express.Router();
 // ];
 
 // GET
-router.get('/', culture.getPlaces);
+router.get('/', festaController.getFestas);
 
 // GET
-router.get('/:place_NUM', culture.getPlace);
-router.get('/:fac_name', culture.getPlaceByFac_name);
+router.get('/:place_NUM', festaController.getFesta);
+
+// 이름으로 찾는거 없어서 대충 넣어둠
+router.get('/:fac_name', festaController.getFesta);
 
 // POST
-router.post('/', culture.CreatePlace);
+router.post('/', festaController.CreateFesta);
 
 // PUT
-router.put('/:place_NUM', culture.UpdatePlace);
+router.put('/:place_NUM', festaController.updateFesta);
 
 // DELETE
-router.delete('/:place_NUM', culture.deletePlace);
+router.delete('/:place_NUM', festaController.deleteFesta);
 
 export default router;
