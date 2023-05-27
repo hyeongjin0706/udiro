@@ -3,12 +3,9 @@ import cors from "cors";
 import morgan from "morgan";
 import authRouter from "./router/auth.js";
 import cultureRouter from './router/culture.js';
+import mainRouter from "./router/main.js"
 import { config } from "./config.js";
 import { sequelize } from "./db/database.js";
-import mainRouter from "./router/main.js"
-import { EventEmitter } from 'events';
-const bus = new EventEmitter();
-bus.setMaxListeners(20);
 const app = express();
 
 const corsOption = {
@@ -35,5 +32,5 @@ app.use((error, req, res, next) => {
 });
 
 sequelize.sync().then(() => {
-    const server = app.listen(config.host.port);
+    app.listen(config.host.port);
 });
