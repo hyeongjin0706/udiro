@@ -1,5 +1,6 @@
 const modal_big = document.querySelectorAll('.modal_big');
-console.log(modal_big)
+const modal_small = document.querySelectorAll('.modal_small');
+console.log(modal_small)
 
 // 각각 클래스 이름으로 태그 다큐먼트로 가져오기
 const modals = document.querySelectorAll('.modal');
@@ -43,6 +44,14 @@ function hideModal(modal) {
 // 클릭했을때 modals에 저장되어있는 모든것들에 show 클래스 추가해주기
 btnOpenPopup.addEventListener('click', () => {
     modals.forEach(modal => showModal(modal));
+    modal_small.forEach(modal => {
+        if (modal.classList.contains('show')) {
+            modal.classList.remove('show')
+            console.log(modal)
+        } else {
+            modal.classList.add('show')
+        }
+    });
 });
 
 
