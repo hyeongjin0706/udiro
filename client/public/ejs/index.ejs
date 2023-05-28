@@ -8,8 +8,9 @@
     <title>UDiro에 오신걸 환영합니다.</title>
 
     <link rel="stylesheet" href="../css/main/main.css">
-    <link rel="stylesheet" href="../js/main/main.js">
+    <link rel="stylesheet" href="../css/token.css">
     <script type="module" src="../js/main/slide.js"></script>
+    <script src="../js/header.js" defer></script>
 
     <!-- <script type="module" src="../public/js/mainPeople.js"></script> -->
 
@@ -40,9 +41,9 @@
         <!-- 로그인, 회원가입 -->
 
         <div id="login" class="login__signUp">로그인</div>
-        <div id="mypage" class="login__signUp">마이페이지</div>
+        <div id="mypage" class="login__signUp noshow">마이페이지</div>
         <div id="signUp" class="login__signUp">회원가입</div>
-        <div id="logout" class="login__signUp">로그아웃</div>
+        <div id="logout" class="login__signUp noshow">로그아웃</div>
         <!-- 로그인, 회원가입 끝 -->
     </header>
 
@@ -131,8 +132,7 @@
         </form>
 
         <!-- 구 슬라이드 -->
-        <div class="slide slide_wrap">
-            <img src="../images/mainPlace/남산공원.jpg" class="slide_item">
+        <div class="slide slide_wrap"><img src="../images/mainPlace/남산공원.jpg" class="slide_item">
             <img src="../images/mainPlace/강남 mice 관광특구.png" class="slide_item">
             <img src="../images/mainPlace/동대문 관광특구.PNG" class="slide_item">
             <img src="../images/mainPlace/명동 관광특구.jpg" class="slide_item">
@@ -216,9 +216,8 @@
         <div id="copyright">Copyright 2023. UDiro. All rights reserved</div>
     </footer>
 
+    <script src="../js/main/main.js" defer></script>
 
-    <script src="../public/js/location/main.js" defer></script>
-    <script src="../src/service/main.js" defer></script>
 </body>
 
 </html>

@@ -190,3 +190,4 @@ slide.addEventListener("touchend", (e) => {
         nextMove();
     }
 });
+

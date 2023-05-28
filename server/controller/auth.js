@@ -36,8 +36,6 @@ export async function login(req, res) {
     }
     const isValidpassword = await (bcrypt.compare(user_pw, user.user_pw));
 
-    // 이부분 추가함
-    console.log(isValidpassword)
 
     if (!isValidpassword) {
         return res.status(401).json({ message: "아이디 또는 비밀번호를 확인하세요" })

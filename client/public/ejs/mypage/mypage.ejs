@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="../../css/mypage/mypage.css">
     <link rel="stylesheet" href="../../css/sidebar/sidebar.css">
     <link rel="stylesheet" href="../../css/public.css">
+    <link rel="stylesheet" href="../../css/token.css">
+    <script src="../../js/mypage/mypageInner.js" defer></script>
     <script src="../../js/mypage/mypage.js" defer></script>
+    <script src="../../js/header.js" defer></script>
     <title>My Page</title>
 </head>
 
@@ -27,8 +30,11 @@
         </ul>
         <!-- 헤더 메뉴 끝 -->
         <!-- 로그인, 회원가입 -->
-        <div id="login" class="login__signUp">마이페이지</div>
-        <div id="logout" class="login__signUp">로그아웃</div>
+
+        <div id="login" class="login__signUp">로그인</div>
+        <div id="mypage" class="login__signUp noshow">마이페이지</div>
+        <div id="signUp" class="login__signUp">회원가입</div>
+        <div id="logout" class="login__signUp noshow">로그아웃</div>
         <!-- 로그인, 회원가입 끝 -->
     </header>
 
@@ -90,7 +96,7 @@
             <div id="my__Acount__name" class="mypage__innerDiv">
                 <div id="my__Acount__id__text">
                     <h3>아이디</h3>
-                    <p class="name__text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wltjd817</p>
+                    <p class="name__text" id="user_id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wltjd817</p>
                 </div>
                 <!-- <div id="my__Acount__name__update">
                     <button id="name__update__btn" class="mypage__btn">편집</button>

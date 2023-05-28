@@ -1,6 +1,7 @@
 // const TokenStorage = require('../token/token.js');
 // const tokenStorage = new TokenStorage();
 
+
 async function login() {
     const user_id = document.getElementById('idinput').value;
     const user_pw = document.getElementById('pwinput').value;
@@ -23,9 +24,8 @@ async function login() {
             if (response.ok) {
                 response.json().then(function (data) {
                     const token = data.token;
-                    console.log(token);
                     localStorage.setItem("token", token);
-                    window.location.href = '../main/index.html'; // 로그인 성공 시 index.html로 리디렉션
+                    window.location.href = '/'
                 });
             } else {
                 response.json().then(function (data) {
