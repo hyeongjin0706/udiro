@@ -9,9 +9,9 @@
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/place/autocomplete/output?parameters"></script> -->
-    <link rel="stylesheet" href="../public/css/map.css">
-    <link rel="stylesheet" href="../public/public.css">
-    <link rel="stylesheet" href="./modal.css">
+    <link rel="stylesheet" href="../../css/map/map.css">
+    <link rel="stylesheet" href="../../css/public.css">
+    <link rel="stylesheet" href="../../css/map/modal.css">
 
 
 </head>
@@ -96,24 +96,24 @@
         </select>
 
         <button id="refresh-button">
-            <img src="../public/images/reload.png" alt="Image">
+            <img src="../../images/map/reload.png" alt="Image">
         </button>
         <button class="see-button btn-open-popup"">
-            <img src=" ../public/images/eye.png" alt="Image">
+            <img src="../../images/map/eye.png" alt="Image">
         </button>
 
 
         <div class="seecheckbox-container">
             <div class="seecheckbox">
-                <img src="./img/map/heart.png">
+                <img src="../../images/map/heart.png">
                 <input type="checkbox" id="heartCheckbox" onchange="toggleMarkerVisibility('heart')">
             </div>
             <div class="seecheckbox">
-                <img src="./img/map/restroom.png">
+                <img src="../../images/map/restroom.png">
                 <input type="checkbox" id="restroomCheckbox" onchange="toggleMarkerVisibility('restroom')">
             </div>
             <div class="seecheckbox">
-                <img src="./img/map/parking.png">
+                <img src="../../images/map/parking.png">
                 <input type="checkbox" id="parkingCheckbox" onchange="toggleMarkerVisibility('parking')">
             </div>
         </div>
@@ -134,7 +134,7 @@
         <div class="modal_small" id="weather">
             <p>날씨</p>
             <div id="weather_box">
-                <img src="../public/images/rain.png" id="weather_now">
+                <img src="../../images/map/rain.png" id="weather_now">
                 <div class="description_now" id="weather_desc"> 15º
                 </div>
             </div>
@@ -199,7 +199,7 @@
                 <p>인구 혼잡도</p>
 
                 <div id="weather_box_big">
-                    <img src="../public/images/peopel.png" id="road_big">
+                    <img src="../../images/map/peopel.png" id="road_big">
                     <br>
                     인구 혼잡도
                     <div class="description_now2" id="live_people"> 잠시만 기다려 주세요 </div>
@@ -220,7 +220,7 @@
                 <p>도로상황</p>
 
                 <div id="weather_box_big">
-                    <img src="../public/images/rain.png" id="weather_big">
+                    <img src="../../images/map/rain.png" id="weather_big">
                     <br>
                     도로 상황
                     <div class="description_now2" id="road_Traffic"> 잠시만 기다려 주세요 </div>
@@ -239,11 +239,11 @@
     <!-- 날씨, 인구혼잡도, 교통 모달창 (see버튼 클릭시 보여줄것 끝) -->
 
 
-    <script src="../public/js/location/header.js" defer></script>
+    <script src="../../js/location/header.js" defer></script>
 
-    <script src="./modal.js" defer></script>
-    <script src="../public/js/map.js" defer></script>
-    <script src="../public/js/location/map.js" defer></script>
+    <script src="../../js/map/modal.js" defer></script>
+    <script src="../../js/map/map.js" defer></script>
+    <script src="../../js/location/map.js" defer></script>
 
 
 
