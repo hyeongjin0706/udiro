@@ -13,8 +13,8 @@ router.get('/terms', (req,res)=>{
 });
 
 // 회원가입
-router.get('/siginUp', (req,res)=>{
-    res.render("./auth/siginUp.ejs");
+router.get('/signUp', (req,res)=>{
+    res.render("./auth/signUp.ejs");
 });
 
 // 아이디찾기
