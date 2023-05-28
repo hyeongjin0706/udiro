@@ -15,9 +15,6 @@ router.post('/findpw', authController.findPw);
 router.get('/me', isAuth, authController.me);
 
 
-router.put('/update', authController.C_updateMypage)
-router.delete('/delete', authController.deleteById)
-
 
 
 

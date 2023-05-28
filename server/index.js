@@ -6,6 +6,7 @@ import cultureRouter from './router/culture.js';
 import mainRouter from "./router/main.js"
 import { config } from "./config.js";
 import { sequelize } from "./db/database.js";
+import mypageRouter from "./router/mypage.js"
 const app = express();
 
 const corsOption = {
@@ -18,7 +19,7 @@ app.use(cors(corsOption));
 app.use(morgan("tiny"));
 
 app.use("/auth", authRouter);
-app.use('/mypage', authRouter)
+app.use('/mypage', mypageRouter)
 app.use('/', mainRouter);
 app.use('/culture', cultureRouter);
 

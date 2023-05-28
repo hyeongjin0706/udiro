@@ -161,6 +161,14 @@ export async function me(req, res, next) {
     res.status(200).json({ token: req.token, user_id: user.user_id });
 }
 
+export async function myaccount(req, res, next) {
+    const user = await (userRepository.searchByIdx(req.user_idx));
+    if (!user) {
+        return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
+    }
+    res.status(200).json({ token: req.token, user_id: user.user_id, user_email: user.user_email, user_phone: user.user_phone, user_area: user.user_area });
+}
+
 function createJwtToken(idx) {
     return jwt.sign({ idx }, config.jwt.secretKey, { expiresIn: config.jwt.expiresInSec });
 }
