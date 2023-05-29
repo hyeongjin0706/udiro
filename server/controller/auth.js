@@ -26,12 +26,22 @@ export async function signup(req, res, next) {
     }
 }
 
+export async function duplicationID(req, res, next) {
+    const user_id = req.body;
+    
+    const duplication = await userRepository.searchById(user_id);
+
+    if (duplication) {
+        return res.status(401).json({result:false});
+    }
+    return res.status(201).json({result:true});
+}
+
 export async function login(req, res) {
     const { user_id, user_pw } = req.body;
     const user = await userRepository.searchById(user_id);
     console.log(user);
     if (!user) {
-        console.log('유저객체가 생성이 안됨')
         return res.status(401).json({ message: "아이디 또는 비밀번호를 확인하세요" })
     }
     const isValidpassword = await (bcrypt.compare(user_pw, user.user_pw));
@@ -45,15 +55,6 @@ export async function login(req, res) {
     const token = createJwtToken(user.user_idx);
     res.status(200).json({ token, user_id });
 }
-
-// export async function deleteById(req, res, next) {
-//     const { user_id } = req.body;
-//     const user = await (userRepository.searchById(user_id));
-//     if (!user) {
-//         return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
-//     }
-//     res.status(200).json({ token: req.token, user_id: user.user_id });
-// }
 
 // DELETE
 export async function deleteById(req, res, next) {
