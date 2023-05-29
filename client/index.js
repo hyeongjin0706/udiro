@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 app.use("/culture", cultureRouter);
 app.use("/mypage", mypageRouter);
 app.use("/map", mapRouter);
-app.use("/login", loginRouter);
+app.use("/auth", loginRouter);
 
 app.use((req, res, next) => {
     res.sendStatus(404)

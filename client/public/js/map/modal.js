@@ -73,104 +73,160 @@ person_click.addEventListener('click', () => {
 
 
 
+var markers = [];
 
-// var markers = [];
-// // 체크박스 상태에 따라 마커를 보이게 하거나 숨기는 함수
-// function toggleMarkerVisibility(type) {
-//     var checkbox = document.getElementById(type + 'Checkbox');
-//     var isVisible = checkbox.checked;
+function toggleMarkerVisibility() {
+    var checkbox = document.getElementById(type + 'Checkbox');
+    var isVisible = checkbox.checked;
 
-//     // 해당 타입의 마커들
-//     markers.forEach(function (marker) {
-//         if (marker.type === type) {
-//             marker.setVisible(isVisible);
-//         }
-//     });
-// }
+    markers.forEach(function (marker) {
+        marker.setVisible(isVisible);
+    });
+}
+
+function toggleMarkerVisibilityByType(type) {
+    var isVisible = type.checked;
+
+    markers.forEach(function (marker) {
+        if (!restroomCheckbox.checked) {
+            marker.setVisible();
+        }
+    });
+}
+
+async function MK() {
+    await fetch('http://openAPI.seoul.go.kr:8088/4550596c7365687731323346776b5a6f/xml/SearchPublicToiletPOIService/1/200/')
+        .then(response => response.text())
+        .then(data => {
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(data, 'text/xml');
+            var rows = xmlDoc.getElementsByTagName('row');
+            var restrooms = [];
+            for (var i = 0; i < rows.length; i++) {
+                var restroom = {
+                    name: rows[i].getElementsByTagName('FNAME')[0].textContent,
+                    lat: parseFloat(rows[i].getElementsByTagName('Y_WGS84')[0].textContent),
+                    lng: parseFloat(rows[i].getElementsByTagName('X_WGS84')[0].textContent)
+                };
+                restrooms.push(restroom);
+            }
+            restrooms.forEach(function (restroom) {
+                var imageSrc = 'https://cdn4.iconfinder.com/data/icons/restaurant-glyph-3/64/restroom-furniture_and_household-sanitary-hygiene-toilet-bathroom-buildings-512.png',
+                    imageSize = new kakao.maps.Size(32, 32);
+
+                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                var marker = new kakao.maps.Marker({
+                    position: new kakao.maps.LatLng(restroom.lat, restroom.lng),
+                    map: map,
+                    title: restroom.name,
+                    type: 'restroom',
+                    visible: false,
+                    image: markerImage //이미지
+                });
+
+                // 인포윈도우 내용과 위치 설정
+                var iwContent = '<div style="padding:15px; height:90px; font-size:14px;">' +
+                    restroom.name + '<br><a href="https://map.kakao.com/link/map/' + restroom.name + ',' + restroom.lat + ',' + restroom.lng + '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/' + restroom.name + ',' + restroom.lat + ',' + restroom.lng + '" style="color:blue" target="_blank">길찾기</a></div>';
+                var iwPosition = new kakao.maps.LatLng(restroom.lat, restroom.lng);
+
+                // 마커 클릭 이벤트 처리
+                kakao.maps.event.addListener(marker, 'click', function () {
+                    // 인포윈도우가 열려있을 경우 닫기
+                    if (infowindow.getMap()) {
+                        infowindow.close();
+                    } else {
+                        // 인포윈도우 열기
+                        infowindow.setContent(iwContent);
+                        infowindow.open(map, marker);
+                    }
+                });
+                markers.push(marker);
+            });
+        })
+        .catch(error => {
+            console.error('API 데이터를 가져오는 중 오류 발생:', error);
+        });
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow();
+}
+
+
+async function MK2() {
+    await fetch('http://openapi.seoul.go.kr:8088/4550596c7365687731323346776b5a6f/xml/GetParkInfo/1/100')
+        .then(response => response.text())
+        .then(data => {
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(data, 'text/xml');
+            var rows = xmlDoc.getElementsByTagName('row');
+            var parkingLots = [];
+            for (var i = 0; i < rows.length; i++) {
+                var parkingLot = {
+                    name: rows[i].getElementsByTagName('PARKING_NAME')[0].textContent,
+                    lat: parseFloat(rows[i].getElementsByTagName('LAT')[0].textContent),
+                    lng: parseFloat(rows[i].getElementsByTagName('LNG')[0].textContent)
+                };
+                parkingLots.push(parkingLot);
+            }
+            parkingLots.forEach(function (parkingLot) {
+                var imageSrc = 'https://cdn3.iconfinder.com/data/icons/solid-amenities-icon-set/64/Parking_2-512.png',
+                    imageSize = new kakao.maps.Size(32, 32);
+                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+                var marker = new kakao.maps.Marker({
+                    position: new kakao.maps.LatLng(parkingLot.lat, parkingLot.lng),
+                    map: map,
+                    title: parkingLot.name,
+                    type: 'parking',
+                    image: markerImage,
+                    visible: false
+                });
+                // 인포윈도우 내용과 위치 설정
+                var iwContent = '<div style="padding:15px; height:90px; font-size:14px;">' +
+                    parkingLot.name + '<br><a href="https://map.kakao.com/link/map/' + parkingLot.name + ',' + parkingLot.lat + ',' + parkingLot.lng + '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/' + parkingLot.name + ',' + parkingLot.lat + ',' + parkingLot.lng + '" style="color:blue" target="_blank">길찾기</a></div>';
+                var iwPosition = new kakao.maps.LatLng(parkingLot.lat, parkingLot.lng);
+                // 마커 클릭 이벤트 처리
+                kakao.maps.event.addListener(marker, 'click', function () {
+                    // 인포윈도우가 열려있을 경우 닫기
+                    if (infowindow.getMap()) {
+                        infowindow.close();
+                    } else {
+                        // 인포윈도우 열기
+                        infowindow.setContent(iwContent);
+                        infowindow.open(map, marker);
+                    }
+                });
+
+                markers.push(marker);
+            });
+        })
+        .catch(error => {
+            console.error('지하주차장 데이터를 가져오는 중 오류 발생:', error);
+        });
+
+    // 인포윈도우생성
+    var infowindow = new kakao.maps.InfoWindow();
+}
 
 
 
-// function initMap() {
-//     var map = new google.maps.Map(document.getElementById('map'), {
-//         zoom: 13,
-//         center: {
-//             lat: 37.5665,
-//             lng: 126.9780
-//         },
-//         mapTypeControl: false,
-//         streetViewControl: false,
-//         fullscreenControl: false,
 
 
-//     });
+// Add event listeners to the specific checkboxes
+var restroomCheckbox = document.getElementById('restroomCheckbox');
+restroomCheckbox.addEventListener('change', function () {
+    if (restroomCheckbox.checked) {
+        MK()
+    }
+    toggleMarkerVisibilityByType('checkbox');
+});
 
-//     fetch('http://openAPI.seoul.go.kr:8088/4550596c7365687731323346776b5a6f/xml/SearchPublicToiletPOIService/1/200/')
-//         .then(response => response.text())
-//         .then(data => {
-//             var parser = new DOMParser();
-//             var xmlDoc = parser.parseFromString(data, 'text/xml');
-
-//             var rows = xmlDoc.getElementsByTagName('row');
-//             var restrooms = [];
-//             for (var i = 0; i < rows.length; i++) {
-//                 var restroom = {
-//                     name: rows[i].getElementsByTagName('FNAME')[0].textContent,
-//                     lat: parseFloat(rows[i].getElementsByTagName('Y_WGS84')[0].textContent),
-//                     lng: parseFloat(rows[i].getElementsByTagName('X_WGS84')[0].textContent)
-//                 };
-//                 restrooms.push(restroom);
-//             }
-
-//             restrooms.forEach(function (restroom) {
-//                 var marker = new google.maps.Marker({
-//                     position: {
-//                         lat: restroom.lat,
-//                         lng: restroom.lng
-//                     },
-//                     map: map,
-//                     title: restroom.name,
-//                     type: 'restroom',
-//                     visible: document.getElementById('restroomCheckbox').checked
-//                 });
-//                 markers.push(marker);
-//             });
-//         })
-//         .catch(error => {
-//             console.error('API 데이터를 가져오는 중 오류 발생:', error);
-//         });
-
-//     fetch('http://openapi.seoul.go.kr:8088/4550596c7365687731323346776b5a6f/xml/GetParkInfo/1/100/')
-//         .then(response => response.text())
-//         .then(data => {
-//             var parser = new DOMParser();
-//             var xmlDoc = parser.parseFromString(data, 'text/xml');
-
-//             var rows = xmlDoc.getElementsByTagName('row');
-//             var parkingLots = [];
-//             for (var i = 0; i < rows.length; i++) {
-//                 var parkingLot = {
-//                     name: rows[i].getElementsByTagName('PARKING_NAME')[0].textContent,
-//                     lat: parseFloat(rows[i].getElementsByTagName('LAT')[0].textContent),
-//                     lng: parseFloat(rows[i].getElementsByTagName('LNG')[0].textContent)
-//                 };
-//                 parkingLots.push(parkingLot);
-//             }
-
-//             parkingLots.forEach(function (parkingLot) {
-//                 var marker = new google.maps.Marker({
-//                     position: {
-//                         lat: parkingLot.lat,
-//                         lng: parkingLot.lng
-//                     },
-//                     map: map,
-//                     title: parkingLot.name,
-//                     type: 'parking',
-//                     visible: document.getElementById('parkingCheckbox').checked
-//                 });
-//                 markers.push(marker);
-//             });
-//         })
-//         .catch(error => {
-//             console.error('지하주차장 데이터를 가져오는 중 오류 발생:', error);
-//         });
-// }
+var parkingCheckbox = document.getElementById('parkingCheckbox');
+parkingCheckbox.addEventListener('change', function () {
+    if (parkingCheckbox.checked) {
+        MK2()
+    }
+    toggleMarkerVisibilityByType('checkbox');
+});

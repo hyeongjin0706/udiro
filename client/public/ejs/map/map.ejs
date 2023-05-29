@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="../../css/map/map.css">
     <link rel="stylesheet" href="../../css/public.css">
     <link rel="stylesheet" href="../../css/map/modal.css">
+    <link rel="stylesheet" href="../../css/token.css">
+    <script src="../../js/header.js" defer></script>
 
 
 
@@ -29,8 +31,13 @@
             <li class="header__menu__list" id="header__menu__culture">문화</li>
         </ul>
 
+        <!-- 로그인, 회원가입 -->
+
         <div id="login" class="login__signUp">로그인</div>
+        <div id="mypage" class="login__signUp noshow">마이페이지</div>
         <div id="signUp" class="login__signUp">회원가입</div>
+        <div id="logout" class="login__signUp noshow">로그아웃</div>
+        <!-- 로그인, 회원가입 끝 -->
 
     </header>
     <div id="map" style="width:100%; height: 106%;"></div>
@@ -105,10 +112,10 @@
 
 
         <div class="seecheckbox-container">
-            <div class="seecheckbox">
+            <!-- <div class="seecheckbox">
                 <img src="../../images/map/heart.png">
                 <input type="checkbox" id="heartCheckbox" onchange="toggleMarkerVisibility('heart')">
-            </div>
+            </div> -->
             <div class="seecheckbox">
                 <img src="../../images/map/restroom.png">
                 <input type="checkbox" id="restroomCheckbox" onchange="toggleMarkerVisibility('restroom')">
@@ -240,24 +247,21 @@
     <!-- 날씨, 인구혼잡도, 교통 모달창 (see버튼 클릭시 보여줄것 끝) -->
 
 
-    <script src="../public/js/location/header.js" defer></script>
+
 
     <script src="../../js/map/modal.js" defer></script>
     <script src="../../js/map/map.js" defer></script>
-    <script src="../public/js/location/map.js" defer></script>
-
-
+    <script src="../../js/map/map_inner.js" defer></script>
 
 
     <!-- 지도 -->
-    <script type="module" src="../../js/map/map_inner.js" defer></script>
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440d4850306225a19c1ade5724a9c73d&libraries=services"></script>
     <script defer>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
+                center: new kakao.maps.LatLng(37.526626, 126.970349), // 지도의 중심좌표
+                level: 7 // 지도의 확대 레벨
             };
 
         // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다

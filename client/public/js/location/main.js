@@ -32,3 +32,6 @@ const main__logo = document.querySelector('#main__logo');
 main__logo.addEventListener('click', () => {
     window.location.reload()
 })
+
+const search__bar = document.getElementById('search__bar')
+console.log(search__bar)

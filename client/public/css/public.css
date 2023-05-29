@@ -131,3 +131,14 @@ header>ul>li {
 #centerGo {
     width: 10%;
 }
+
+
+#side__bar__select {
+    text-align: center;
+    outline: none;
+    border: none;
+}
+
+.noShow {
+    display: none;
+}

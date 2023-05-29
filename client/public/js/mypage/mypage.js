@@ -1,43 +1,22 @@
-// function editNickname() {
-//     var nicknameText = document.getElementById("nickname");
-//     var currentNickname = nicknameText.innerText.trim();
-//     var nicknameInput = document.createElement("input");
-//     nicknameInput.type = "text";
-//     nicknameInput.value = currentNickname;
-
-//     // Replace the nickname text with an input element
-//     nicknameText.innerText = "";
-//     nicknameText.appendChild(nicknameInput);
-
-//     // Change the button text to "저장" (Save)
-//     var nicknameBtn = document.getElementById("nickname__update__btn");
-//     nicknameBtn.innerText = "저장";
-
-//     // Add click event to the "저장" (Save) button
-//     nicknameBtn.onclick = function () {
-//         var newNickname = nicknameInput.value;
-//         // Perform the save/update logic here
-//         // For this example, we simply update the nickname text
-//         nicknameText.innerText = newNickname;
-//         // Change the button text back to "편집" (Edit)
-//         nicknameBtn.innerText = "편집";
-//         // Reset the button click event to editNickname()
-//         nicknameBtn.onclick = editNickname;
-//     };
-// }
-
 // 수정할 곳들의 내용을 객체에 담아서 한번에 보내주기
-const user_id = document.querySelector('#my__Acount__id__text').children[1].textContent.trim(' ')
+const user_id = document.querySelector('#user_id').innerHTML
 const user_email = document.querySelector('#my__Acount__email__text').children[1].textContent.trim(' ')
 const user_phone = document.querySelector('#my__Acount__phone__text').children[1].textContent.trim(' ')
 const user_area = document.querySelector('#my__Acount__favorite__area__text').children[1].textContent.trim(' ')
-
 
 
 function editemail() {
     var emailText = document.getElementById("email");
     var currentemail = emailText.innerText.trim();
     var emailInput = document.createElement("input");
+
+
+    // 수정할 곳들의 내용을 객체에 담아서 한번에 보내주기
+    const user_id = document.querySelector('#user_id').innerHTML
+    const user_phone = document.querySelector('#my__Acount__phone__text').children[1].textContent.trim(' ')
+    const user_area = document.querySelector('#my__Acount__favorite__area__text').children[1].textContent.trim(' ')
+
+
     emailInput.type = "text";
     emailInput.value = currentemail;
 
@@ -70,10 +49,9 @@ function editemail() {
             });
 
             if (response.ok) {
-                console.log('User email updated successfully');
+                alert('수정되었습니다.');
             } else {
-
-                console.error('Error updating user email');
+                alert('중복된 이메일 입니다.')
             }
         } catch (error) {
             console.error('Error updating user email', error);
@@ -82,6 +60,11 @@ function editemail() {
 }
 
 function editphonenumber() {
+    // 수정할 곳들의 내용을 객체에 담아서 한번에 보내주기
+    const user_id = document.querySelector('#user_id').innerHTML
+    const user_email = document.querySelector('#my__Acount__email__text').children[1].textContent.trim(' ')
+    const user_area = document.querySelector('#my__Acount__favorite__area__text').children[1].textContent.trim(' ')
+
     var phonenumberText = document.getElementById("phonenumber");
     var currentphonenumber = phonenumberText.innerText.trim();
     var phonenumberInput = document.createElement("input");
@@ -120,8 +103,7 @@ function editphonenumber() {
             if (response.ok) {
                 alert('phone번호 수정완료');
             } else {
-
-                alert('존재하지 않는 사용자입니다.')
+                alert('오류가 발생하였습니다.')
             }
         } catch (error) {
             console.error('Error updating user', error);
@@ -133,6 +115,11 @@ function editphonenumber() {
 }
 
 function editusuallylocal() {
+    // 수정할 곳들의 내용을 객체에 담아서 한번에 보내주기
+    const user_id = document.querySelector('#user_id').innerHTML
+    const user_email = document.querySelector('#my__Acount__email__text').children[1].textContent.trim(' ')
+    const user_phone = document.querySelector('#my__Acount__phone__text').children[1].textContent.trim(' ')
+
     var usuallylocalText = document.getElementById("usuallylocal");
     var currentusuallylocal = usuallylocalText.innerText.trim();
     var usuallylocalInput = document.createElement("input");
@@ -170,7 +157,7 @@ function editusuallylocal() {
                 alert('자주가는 지역 수정완료');
             } else {
 
-                alert('존재하지 않는 사용자입니다.')
+                alert('오류가 발생되었습니다.')
             }
         } catch (error) {
             console.error('Error updating user', error);
@@ -178,27 +165,6 @@ function editusuallylocal() {
     };
 }
 
-
-// function editjjuim() {
-//     var jjuimText = document.getElementById("jjuim");
-//     var currentjjuim = jjuimText.innerText.trim();
-//     var jjuimInput = document.createElement("input");
-//     jjuimInput.type = "text";
-//     jjuimInput.value = currentjjuim;
-
-//     jjuimText.innerText = "";
-//     jjuimText.appendChild(jjuimInput);
-
-//     var jjuimBtn = document.getElementById("favorite__area__btn2");
-//     jjuimBtn.innerText = "저장";
-
-//     jjuimBtn.onclick = function () {
-//         var newjjuim = jjuimInput.value;
-//         jjuimText.innerText = newjjuim;
-//         jjuimBtn.innerText = "편집";
-//         jjuimBtn.onclick = editjjuim;
-//     };
-// }
 
 function showConfirmation() {
     const confirmation = confirm('정말로 탈퇴하시겠습니까?');
@@ -211,6 +177,11 @@ function showConfirmation() {
     }
 }
 async function deleteData() {
+    // 수정할 곳들의 내용을 객체에 담아서 한번에 보내주기
+    const user_id = document.querySelector('#user_id').innerHTML
+    const user_email = document.querySelector('#my__Acount__email__text').children[1].textContent.trim(' ')
+    const user_phone = document.querySelector('#my__Acount__phone__text').children[1].textContent.trim(' ')
+    const user_area = document.querySelector('#my__Acount__favorite__area__text').children[1].textContent.trim(' ')
     try {
         const response = await fetch('https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/mypage/delete', {
             method: 'DELETE',
@@ -227,11 +198,14 @@ async function deleteData() {
 
         if (response.ok) {
             alert('탈퇴가 완료 되었습니다.');
+            localStorage.clear('token');
+            window.location.href = '/'
         } else {
-
+            localStorage.clear('token');
             alert('존재하지 않는 사용자입니다.')
+            window.location.href = '/'
         }
     } catch (error) {
-        console.error('Error updating user', error);
+        alert('오류가 발생하였습니다.');
     }
 };

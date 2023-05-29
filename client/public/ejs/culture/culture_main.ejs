@@ -9,10 +9,13 @@
     <link rel="icon" type="image/png" href="../../../assets/images/logo/udiro_logo_1.png">
     <link rel="stylesheet" href="../public/css/culture3.css">
     <link rel="stylesheet" href="../../css/culture/culture.css">
-    <link rel="stylesheet" href="../../css/public.css">
     <link rel="stylesheet" href="../../css/publicPost.css">
+    <link rel="stylesheet" href="../../css/public.css">
     <script defer src="../../js/culture/culture.js" defer></script>
     <script src="../../js/culture/culture_main.js" defer></script>
+    <link rel="stylesheet" href="../../css/token.css">
+    <script src="../../js/header.js" defer></script>
+    <script src="../../js/sidebar.js" defer></script>
 </head>
 
 <body>
@@ -32,8 +35,11 @@
         </ul>
         <!-- 헤더 메뉴 끝 -->
         <!-- 로그인, 회원가입 -->
+
         <div id="login" class="login__signUp">로그인</div>
+        <div id="mypage" class="login__signUp noshow">마이페이지</div>
         <div id="signUp" class="login__signUp">회원가입</div>
+        <div id="logout" class="login__signUp noshow">로그아웃</div>
         <!-- 로그인, 회원가입 끝 -->
     </header>
     <!-- 헤더 끝 -->
@@ -42,7 +48,7 @@
         <!-- 사이드 바 -->
         <div id="side__bar">
             <ul id="side__bar__ul">
-                <li class="side__bar__li sidebar__bigMenu">문화</li>
+                <li class="side__bar__li sidebar__bigMenu">마이페이지</li>
                 <li class="side__bar__li sidebar__midMenu">지도</li>
                 <hr>
                 <br>
@@ -263,8 +269,8 @@
         <!-- 전체 컨테이너 끝 -->
         <div id="centerGo"></div>
     </div>
-    <script src="../public/js/location/header2.js"></script>
-    <script src="./culture.js"></script>
+
+    <script src="../../js/culture/culture.js"></script>
 </body>
 
 </html>

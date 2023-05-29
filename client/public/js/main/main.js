@@ -191,3 +191,15 @@ slide.addEventListener("touchend", (e) => {
     }
 });
 
+// 기본적으로 슬라이드 루프 시작하기
+let loopInterval = setInterval(() => {
+    nextMove();
+}, 3000);
+
+//  메인 셀렉창 장소 이동하기
+const search__bar = document.getElementById('search__bar')
+
+search__bar.addEventListener('change', () => {
+    window.localStorage.setItem('map_value', search__bar.value)
+    window.location.href = '/map'
+})

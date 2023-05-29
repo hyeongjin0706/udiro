@@ -67,7 +67,7 @@ signUp.addEventListener('click', () => {
     const hasUnchecked = checkList.some(item => !item.checked);
     if (!hasUnchecked) {
         // 체크박스 모두 체크한 경우 회원가입 페이지로 이동
-        window.location.href = './signUp.html';
+        window.location.href = '/auth/signUp';
     } else {
         // 체크박스 중 하나 이상이 체크되어 있지 않은 경우 모달창 띄움
         terms_modal.classList.add('show');

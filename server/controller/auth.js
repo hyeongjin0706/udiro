@@ -118,8 +118,8 @@ export async function C_updateMypage(req, res, next) {
 }
 
 export async function findId(req, res, next) {
-    const { user_name, user_phone } = req.body;
-    const user = await (userRepository.searchByNameHP(user_name, user_phone));
+    const { user_name, user_email } = req.body;
+    const user = await (userRepository.searchByNameHP(user_name, user_email));
     if (!user) {
         return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
     }
@@ -165,7 +165,7 @@ export async function myaccount(req, res, next) {
         return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
     }
     console.log(user)
-    res.status(200).json({ user_id: user.user_id, user_email: user.user_email, user_phone: user.user_phone, user_area: user.user_area });
+    res.status(200).json({ user_name: user.user_name, user_id: user.user_id, user_email: user.user_email, user_phone: user.user_phone, user_area: user.user_area });
 }
 
 function createJwtToken(idx) {

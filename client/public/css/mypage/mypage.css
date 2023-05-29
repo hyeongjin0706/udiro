@@ -10,6 +10,13 @@
 
 
 /* 내 계정 시작 */
+
+p {
+    margin-top: 15px;
+    margin-left: 40px;
+    font-size: 20px;
+}
+
 #myAcount {
     color: black;
     width: 100%;
@@ -52,7 +59,7 @@
     background-color: gold
 }
 
-#my__Acount__delete__text {
+#my__Acount__delete__text p {
     font-size: 12px;
 }
 
