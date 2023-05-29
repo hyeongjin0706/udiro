@@ -219,11 +219,6 @@
                 <tbody>
                     <tr>
                         <td class="lengthlarger">
-                            <select name="searchregion" style="width:10%; height:50%; float:left; left:30px; ">
-                                <option value="전체">전체</option>
-                                <option value="행사">행사</option>
-                                <option value="장소">장소</option>
-                            </select>
                             <select onchange="setPlaceholder(this.value)"
                                 style="width:15%; height:50%; float:left; left:70px">
                                 <option value="지역" name="지역">지역</option>
@@ -236,6 +231,7 @@
                                 style="width:15%; height:50%; width:250px; right:20px;">
                             <input type="text" id="datepicker2" placeholder="종료 날짜"
                                 style="width:15%; height:50%; width:250px; left:20px;">
+                            <button type="button" class="needblack" id="searchbar2">검색</button>
                         </td>
                     </tr>
                 </tbody>
@@ -247,7 +243,8 @@
             <div class="performancehead">
                 <div class="event_festival">
                     <div class="heading">장소</div>
-                    <div class="showMore" id="place_more"><a href="./culture_main.html">접기</a></div>
+                    <div class="showMore" id="place_more"><a href="http://localhost:9000/culture/main">main으로 이동</a>
+                    </div>
                 </div>
                 <div class="place__container">
                 </div>

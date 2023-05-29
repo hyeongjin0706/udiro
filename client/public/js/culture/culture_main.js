@@ -1,52 +1,10 @@
-import { response } from 'express';
-
 for (let i = 1; i <= 10; i++) {
   fetchDataFesta(i);
   fetchDataPlace(i);
 }
 
-export function search() {
-  // 검색버튼 만들기
-  const filter = document.getElementById('filter').value;
-  const location = document.getElementById('location').value;
-  const inputField = document.getElementById('inputField').value;
-  const startDate = document.getElementById('startDate').value;
-  const endDate = document.getElementById('endDate').value;
-
-  fetch('/search', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      filter: filter,
-      location: location,
-      inputField: inputField,
-      startDate: startDate,
-      endDate: endDate,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      const results = data;
-      // 결과창 새로 만들기
-      // list로 표시하기
-      const resultDiv = document.getElementById('resultDiv');
-      resultDiv.innerHTML = '';
-
-      results.forEach((item) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = item.title;
-        resultDiv.appendChild(listItem);
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
 function fetchDataFesta(festanum) {
-  fetch(`http://localhost:8080/festa/${festanum}`, {
+  fetch(`http://localhost:8080/culture/festa/num/${festanum}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -62,7 +20,7 @@ function fetchDataFesta(festanum) {
 }
 
 function fetchDataPlace(placenum) {
-  fetch(`http://localhost:8080/place/${placenum}`, {
+  fetch(`http://localhost:8080/culture/place/num/${placenum}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -90,7 +48,7 @@ async function processDataAllf(data, festanum) {
   festivalElement.addEventListener('click', function (event) {
     const festivalId = event.target.id;
     console.log(festivalId);
-    const url = './event/event.html?festivalId=' + festivalId;
+    const url = `http://localhost:9000/culture/festa/${festanum}`;
     window.location.href = url;
   });
 
@@ -98,24 +56,24 @@ async function processDataAllf(data, festanum) {
   const imgElement = document.createElement('img');
   imgElement.id = festanum;
   imgElement.src = data.MAIN_IMG;
-  await festivalElement.appendChild(imgElement);
+  festivalElement.appendChild(imgElement);
 
   // 텍스트 요소 생성
   const txtElement = document.createElement('div');
   txtElement.className = 'txt';
-  await festivalElement.appendChild(txtElement);
+  festivalElement.appendChild(txtElement);
 
   const titleElement = document.createElement('h2');
   titleElement.textContent = data.TITLE;
-  await txtElement.appendChild(titleElement);
+  txtElement.appendChild(titleElement);
 
   const fplaceElement = document.createElement('span');
   fplaceElement.textContent = data.PLACE;
-  await txtElement.appendChild(fplaceElement);
+  txtElement.appendChild(fplaceElement);
 
   const dateElement = document.createElement('div');
   dateElement.className = 'date';
-  await txtElement.appendChild(dateElement);
+  txtElement.appendChild(dateElement);
 
   const startDate = new Date(data.STRTDATE);
   const formattedStartDate = startDate.toISOString().split('T')[0];
@@ -141,7 +99,7 @@ async function processDataAll(data, placenum) {
   PlaceElement.addEventListener('click', function (event) {
     const placeId = event.target.id;
     console.log(placeId);
-    const url = './place/place.html?placeId=' + placeId;
+    const url = `http://localhost:9000/culture/place/${placenum}`;
     window.location.href = url;
   });
 
@@ -149,22 +107,22 @@ async function processDataAll(data, placenum) {
   const imgElement = document.createElement('img');
   imgElement.id = placenum;
   imgElement.src = data.MAIN_IMG;
-  await PlaceElement.appendChild(imgElement);
+  PlaceElement.appendChild(imgElement);
 
   // 텍스트 요소 생성
   const txtElement = document.createElement('div');
   txtElement.className = 'txt';
-  await PlaceElement.appendChild(txtElement);
+  PlaceElement.appendChild(txtElement);
 
   const titleElement = document.createElement('h2');
   titleElement.textContent = data.FAC_NAME;
-  await txtElement.appendChild(titleElement);
+  txtElement.appendChild(titleElement);
 
   const addrElement = document.createElement('div');
   addrElement.className = 'addr';
-  await txtElement.appendChild(addrElement);
+  txtElement.appendChild(addrElement);
 
   const addressElement = document.createElement('span');
   addressElement.textContent = data.ADDR;
-  await txtElement.appendChild(addressElement);
+  txtElement.appendChild(addressElement);
 }

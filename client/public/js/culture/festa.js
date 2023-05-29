@@ -1,32 +1,28 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const festanum = urlParams.get('festivalId');
-
 function fetchDataFesta(festanum) {
-    fetch(`http://localhost:8080/festa/${festanum}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+  fetch(`http://localhost:8080/culture/festa/${festanum}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      processDataFesta(data);
     })
-        .then((response) => response.json())
-        .then((data) => {
-            processDataFesta(data);
-        })
-        .catch((error) => {
-            console.error('에러 발생', error);
-        });
+    .catch((error) => {
+      console.error('에러 발생', error);
+    });
 }
 
 async function processDataFesta(data) {
-    // 데이터 처리
-    const festasContainer = document.querySelector('.txt-box');
-    const imgContainer = document.querySelector('.img-box');
-    // const textContainer = document.querySelector('.moreview');
+  // 데이터 처리
+  const festasContainer = document.querySelector('.txt-box');
+  const imgContainer = document.querySelector('.img-box');
+  // const textContainer = document.querySelector('.moreview');
 
-    const text = `${data.PROGRAM}`;
-    const img = `<img src="${data.MAIN_IMG}" style="background-size: cover;">`;
-    const html = `
+  const text = `${data.PROGRAM}`;
+  const img = `<img src="${data.MAIN_IMG}" style="background-size: cover;">`;
+  const html = `
     <div class="event-title2">
     <h2>${data.TITLE}</h2>
     </div>
@@ -95,9 +91,9 @@ async function processDataFesta(data) {
     </div>
 `;
 
-    festasContainer.innerHTML = html;
-    imgContainer.innerHTML = img;
-    // textContainer.innerHTML = text;
+  festasContainer.innerHTML = html;
+  imgContainer.innerHTML = img;
+  // textContainer.innerHTML = text;
 }
 
 fetchDataFesta(festanum);

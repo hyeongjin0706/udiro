@@ -2,9 +2,13 @@ import express from 'express';
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  res.render('./culture/culture_place.ejs');
+});
 
-// // GET
-// router.get('/:place_NUM', placeController.getPlace);
+router.get('/:place_num', (req, res) => {
+  res.render('./culture/place.ejs');
+});
 
 // router.get('/:fac_name', placeController.getPlaceByFac_name);
 

@@ -1,9 +1,5 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const placenum = urlParams.get('placeId');
-
 function fetchDataPlace(placenum) {
-  fetch(`http://localhost:8080/place/${placenum}`, {
+  fetch(`http://localhost:8080/place/num/${placenum}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -1,4 +1,4 @@
-import SQ from 'sequelize';
+import SQ, { Sequelize } from 'sequelize';
 import { sequelize } from '../../db/database.js';
 
 const DataTypes = SQ.DataTypes;
@@ -99,7 +99,7 @@ export async function getAll() {
   return culture_festa.findAll({ ...ORDER_DESC });
 }
 
-export async function getAllByData(username) {
+export async function get(username) {
   return culture_festa.findAll({
     ...ORDER_DESC,
     where: {
@@ -107,12 +107,26 @@ export async function getAllByData(username) {
     },
   });
 }
-export async function getAllByGuname(GUNAME) {
+
+export async function searchByGuname(category, filter, input) {
+  let whereCondition = {};
+
+  if (category !== 'all') {
+    whereCondition.category = category;
+  }
+
+  if (filter === 'guname') {
+    whereCondition.location = input;
+  } else if (filter === 'title') {
+    whereCondition.title = { [Sequelize.Op.like]: `%${input}%` };
+  } else if (filter === 'content') {
+    whereCondition.content = { [Sequelize.Op.like]: `%${input}%` };
+  } else if (filter === 'term') {
+    whereCondition.term = input;
+  }
+
   return culture_festa.findAll({
-    ...ORDER_DESC,
-    where: {
-      GUNAME,
-    },
+    where: whereCondition,
   });
 }
 
@@ -133,6 +147,7 @@ export async function getAllBy(username) {
     },
   });
 }
+
 // 바꿀려면 변수 값만 수정하면 됩니다
 export async function getByPK(festa_NUM) {
   return culture_festa.findByPk(festa_NUM);

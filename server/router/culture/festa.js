@@ -21,9 +21,9 @@ router.get('/guname/:guname', festaController.getFestaGuname);
 router.post('/', festaController.CreateFesta);
 
 // PUT
-router.put('/:festa_NUM', festaController.updateFesta);
+router.put('/num/:festa_NUM', festaController.updateFesta);
 
 // DELETE
-router.delete('/:festa_NUM', festaController.deleteFesta);
+router.delete('/num:festa_NUM', festaController.deleteFesta);
 
 export default router;

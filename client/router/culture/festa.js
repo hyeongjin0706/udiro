@@ -2,11 +2,13 @@ import express from 'express';
 
 const router = express.Router();
 
-// // GET
-// router.get('/', festaController.getFestas);
+router.get('/', (req, res) => {
+  res.render('./culture/culture_festa.ejs');
+});
 
-// // GET
-// router.get('/:place_NUM', festaController.getFesta);
+router.get('/:festa_NUM', (req, res) => {
+  res.render('./culture/festa.ejs');
+});
 
 // // 이름으로 찾는거 없어서 대충 넣어둠
 // router.get('/:fac_name', festaController.getFesta);

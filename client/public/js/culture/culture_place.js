@@ -1,9 +1,9 @@
-for (let i = 1; i <= 100; i++) {
+for (let i = 1; i <= 10; i++) {
   fetchDataPlace(i);
 }
 
 function fetchDataPlace(placenum) {
-  fetch(`http://localhost:8080/place/${placenum}`, {
+  fetch(`http://localhost:8080/culture/place/num/${placenum}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
