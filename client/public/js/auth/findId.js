@@ -1,14 +1,14 @@
-async function validation() {
+function validation() {
     const user_name = document.getElementById("idinput").value;
-    const user_phone = document.getElementById("idinput").value;
+    const user_email = document.getElementById("emailinput").value;
     console.log(user_name)
 
     const data = {
         user_name,
-        user_phone
+        user_email
     };
 
-    const response = await fetch('https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/auth/findid', {
+    fetch('https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/auth/findId', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -18,7 +18,11 @@ async function validation() {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
-                    document.getElementById("authentication").readOnly = false;
+                    if (document.getElementById("authentication")) {
+                        document.getElementById("authentication").readOnly = false;
+                    }
+                    alert('메일로 아이디가 전송되었습니다.')
+                    window.location.href = '/auth/login'
                 });
             }
             else {

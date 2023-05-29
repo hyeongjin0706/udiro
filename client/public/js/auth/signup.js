@@ -1,10 +1,10 @@
 function sendit() {
     // 정규 표현식
-    const expIdText = /^[A-Za-z]{4,20}$/;
+    const expIdText = /^[A-Za-z0-9]{4,20}$/;
 
     const user_id = document.getElementById('userid').value;
     const user_pw = document.getElementById('userpw').value;
-    const userpw_re = document.getElementById("userpw_re");
+    const userpw_re = document.getElementById("userpw_re").value;
     const user_name = document.getElementById('username').value;
     const user_phone = document.getElementById('hp').value;
     const user_email = document.getElementById('email').value;
@@ -24,34 +24,34 @@ function sendit() {
     // 이메일 정규 표현식 과제
     const expEmail = /^[A-Za-z0-9\-\.]+@[A-Za-z0-9\-\.]+\.[A-Za-z0-9\-\.]+$/;
 
-    if (!expIdText.test(user_id.value)) {
-        alert("아이디는 4자 이상 20자 이하의 영문자로 입력하세요");
-        user_id.focus();
+    if (!expIdText.test(user_id)) {
+        alert("아이디는 4자 이상 20자 이하의 영문자, 숫자로 입력하세요");
+        document.getElementById('userid').focus();
         return false;
     }
-    if (user_pw.value != userpw_re.value) {
-        alert("비밀번호와 비밀번호 확인의 값이 다릅니다.")
-        user_pw.focus();
+    if (user_pw !== userpw_re) {
+        alert("비밀번호와 비밀번호 확인의 값이 다릅니다.");
+        document.getElementById('userpw').focus();
         return false;
     }
-    if (!expPw.test(user_pw.value)) {
+    if (!expPw.test(user_pw)) {
         alert("비밀번호는 영문 숫자 특수기호 조합 8~20자리 이내로 입력해주세요");
-        user_pw.focus();
+        document.getElementById('userpw').focus();
         return false;
     }
-    if (!expname.test(user_name.value)) {
+    if (!expname.test(user_name)) {
         alert("이름은 2~5글자 한글로 입력하세요");
-        user_name.focus();
+        document.getElementById('username').focus();
         return false;
     }
-    if (!expHp.test(user_phone.value)) {
+    if (!expHp.test(user_phone)) {
         alert("핸드폰 번호를 잘못 입력하셨습니다.");
-        user_phone.focus();
+        document.getElementById('hp').focus();
         return false;
     }
-    if (!expEmail.test(user_email.value)) {
+    if (!expEmail.test(user_email)) {
         alert("이메일을 잘못 입력하셨습니다.");
-        user_email.focus();
+        document.getElementById('email').focus();
         return false;
     }
 
@@ -74,9 +74,8 @@ function sendit() {
             if (response.ok) {
                 response.json().then(function (data) {
                     const token = data.token;
-                    console.log(token);
                     localStorage.setItem("token", token);
-                    window.location.href = '../main/index.html'; // 로그인 성공 시 index.html로 리디렉션
+                    window.location.href = '/';
                 });
             } else {
                 response.json().then(function (data) {

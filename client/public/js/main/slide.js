@@ -48,7 +48,46 @@ slideItems.forEach((i) => {
     i.setAttribute("style", `left: ${-offset}px`);
 });
 
+
+
+
+
+const place = ['더미데이터', '남산공원', '강남 MICE 관광특구', '동대문 관광특구', '명동 관광특구', '이태원 관광특구', '잠실 관광특구', '종로·청계 관광특구', '홍대 관광특구', '경복궁·서촌마을', '광화문·덕수궁', '창덕궁·종묘', '가산디지털단지역', '강남역', '건대입구역', '고속터미널역', '교대역', '구로디지털단지역', '서울역', '선릉역', '신도림역', '신림역', '신촌·이대역', '역삼역', '연신내역', '용산역', '왕십리역', 'DMC(디지털미디어시티)', '창동 신경제 중심지', '노량진', '낙산공원·이화마을', '북촌한옥마을', '가로수길', '성수카페거리', '수유리 먹자골목', '쌍문동 맛집거리', '압구정로데오거리', '여의도', '영등포 타임스퀘어', '인사동·익선동', '국립중앙박물관·용산가족공원', '뚝섬한강공원', '망원한강공원', '반포한강공원', '북서울꿈의숲', '서울대공원', '서울숲공원', '월드컵공원', '이촌한강공원', '잠실종합운동장', '잠실한강공원']
+const peopleNum = document.querySelector('#peopleNum');
+
+
 function nextMove() {
+    const url = `http://openapi.seoul.go.kr:8088/4d66634f6a776c7436315456716566/xml/citydata/1/5/${place[currSlide]}`;
+    console.log(url)
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(data, "text/xml");
+            const items = xmlDoc.getElementsByTagName("CITYDATA");
+
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                const people = item.getElementsByTagName("LIVE_PPLTN_STTS");
+
+                // 해당 엘리먼트가 존재하는 경우에만 값을 가져옴
+                const AREA_NM = people[0].getElementsByTagName('AREA_NM')[0]?.childNodes[0].nodeValue;
+                const AREA_PPLTN_MAX = people[0].getElementsByTagName('AREA_PPLTN_MAX')[0]?.textContent;
+
+                console.log('AREA_NM:', AREA_NM);
+                console.log('AREA_PPLTN_MAX:', AREA_PPLTN_MAX);
+            }
+        })
+        .catch(error => {
+            console.log("데이터를 가져오는 도중 오류가 발생했습니다.", error);
+        });
+
+
+
+
+
+
+
     currSlide++;
     // 마지막 슬라이드 이상으로 넘어가지 않게 하기 위해서
     if (currSlide <= maxSlide) {
@@ -83,6 +122,7 @@ function nextMove() {
         paginationItems[currSlide - 1].classList.add("active");
     }
 }
+
 function prevMove() {
     currSlide--;
     // 1번째 슬라이드 이하로 넘어가지 않게 하기 위해서
@@ -187,6 +227,8 @@ slide.addEventListener("touchend", (e) => {
         nextMove();
     }
 });
+
+
 
 
 

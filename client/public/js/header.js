@@ -18,7 +18,6 @@ if (token2) {
     signUp2.classList.add('noshow')
     mypage2.classList.remove('noshow')
     logout2.classList.remove('noshow')
-    console.log(token2)
 }
 
 // 로그아웃
