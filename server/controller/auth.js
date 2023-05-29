@@ -164,7 +164,8 @@ export async function myaccount(req, res, next) {
     if (!user) {
         return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
     }
-    res.status(200).json({ token: req.token, user_id: user.user_id, user_email: user.user_email, user_phone: user.user_phone, user_area: user.user_area });
+    console.log(user)
+    res.status(200).json({ user_id: user.user_id, user_email: user.user_email, user_phone: user.user_phone, user_area: user.user_area });
 }
 
 function createJwtToken(idx) {
