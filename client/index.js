@@ -1,5 +1,5 @@
 import express from 'express';
-import ejs from 'ejs';
+import cultureRouter from './router/culture.js';
 
 const app = express();
 
@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
   res.render('index.ejs');
 });
 
-// app.use("/culture", )
+app.use('/culture', cultureRouter);
 
 app.use((req, res, next) => {
   res.sendStatus(404);

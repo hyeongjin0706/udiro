@@ -4,7 +4,7 @@ header {
 
 /* 문화정보 - 서울의 문화를 더 알고 싶다면 시작 */
 .backgroundimage {
-    background: url(../images/sub_bg2.jpg);
+    background: url(../../images/culture/sub_bg2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

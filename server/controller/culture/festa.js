@@ -1,14 +1,5 @@
 import * as festaRepository from '../../data/culture/festa.js';
 
-// 전체
-//export async function getFestas(req, res) {
-//  const username = req.query.username;
-//  const data = await (username
-//    ? festaRepository.getAll()(username)
-//    : festaRepository.getAll());
-//  res.status(200).json(data);
-//}
-
 export async function getFestas(req, res) {
   const data = await festaRepository.getAll();
   res.status(200).json(data);
