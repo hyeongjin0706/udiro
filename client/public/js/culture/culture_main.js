@@ -97,8 +97,6 @@ async function processDataAll(data, placenum) {
   PlaceElement.className = 'place_image';
   placesContainer.appendChild(PlaceElement);
   PlaceElement.addEventListener('click', function (event) {
-    const placeId = event.target.id;
-    console.log(placeId);
     const url = `http://localhost:9000/culture/place/${placenum}`;
     window.location.href = url;
   });
