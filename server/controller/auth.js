@@ -25,6 +25,16 @@ export async function signup(req, res, next) {
         next();
     }
 }
+export async function duplicationID(req, res, next) {
+    const user_id = req.body;
+
+    const duplication = await userRepository.searchById(user_id);
+
+    if (duplication) {
+        return res.status(401).json({ result: false });
+    }
+    return res.status(201).json({ result: true });
+}
 
 export async function login(req, res) {
     const { user_id, user_pw } = req.body;
@@ -119,7 +129,7 @@ export async function C_updateMypage(req, res, next) {
 
 export async function findId(req, res, next) {
     const { user_name, user_email } = req.body;
-    const user = await (userRepository.searchByNameHP(user_name, user_email));
+    const user = await (userRepository.searchByNameEmail(user_name, user_email));
     if (!user) {
         return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
     }

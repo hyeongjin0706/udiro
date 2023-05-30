@@ -144,6 +144,8 @@ async function fetchAllPopulationDensities(tourList) {
     return densities;
 }
 
+
+// 최대 인원수
 async function fetchPopulationDensity(place) {
     const url = `http://openapi.seoul.go.kr:8088/4d66634f6a776c7436315456716566/xml/citydata/1/5/${place}`;
     const response = await fetch(url);

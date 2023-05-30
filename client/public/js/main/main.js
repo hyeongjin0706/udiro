@@ -60,30 +60,30 @@ const place = ['남산공원', '강남 MICE 관광특구', '동대문 관광특�
 const peopleNum = document.querySelector('#peopleNum');
 const placeData = []
 
-place.forEach(e => {
-    const url = `http://openapi.seoul.go.kr:8088/4d66634f6a776c7436315456716566/xml/citydata/1/5/${e}`;
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(data, "text/xml");
-            const items = xmlDoc.getElementsByTagName("CITYDATA");
-            // const people = items.getElementsByTagName("LIVE_PPLTN_STTS");
-            // const AREA_NM = items[0].getElementsByTagName("AREA_NM")[0].textContent;
-            // console.log(AREA_NM)
-            const AREA_PPLTN_MAX = items[0].getElementsByTagName('AREA_PPLTN_MAX')[0].textContent;
+// place.forEach(e => {
+//     const url = `//openapi.seoul.go.kr:8088/4d66634f6a776c7436315456716566/xml/citydata/1/5/${e}`;
+//     fetch(url)
+//         .then(response => response.text())
+//         .then(data => {
+//             const parser = new DOMParser();
+//             const xmlDoc = parser.parseFromString(data, "text/xml");
+//             const items = xmlDoc.getElementsByTagName("CITYDATA");
+//             const people = items.getElementsByTagName("LIVE_PPLTN_STTS");
+//             const AREA_NM = items[0].getElementsByTagName("AREA_NM")[0].textContent;
+//             console.log(AREA_NM)
+//             const AREA_PPLTN_MAX = items[0].getElementsByTagName('AREA_PPLTN_MAX')[0].textContent;
 
-            placeData.push([AREA_PPLTN_MAX + `명`])
-        })
-        .catch(error => {
-            console.log("데이터를 가져오는 도중 오류가 발생했습니다.", error);
-        });
-});
+//             placeData.push([AREA_PPLTN_MAX + `명`])
+//         })
+//         .catch(error => {
+//             console.log("데이터를 가져오는 도중 오류가 발생했습니다.", error);
+//         });
+// });
 
 
 
 function nextMove() {
-    peopleNum.innerHTML = placeData[place_slide]
+    // peopleNum.innerHTML = placeData[place_slide]
     currSlide++;
     place_slide++;
     // 마지막 슬라이드 이상으로 넘어가지 않게 하기 위해서
