@@ -1,6 +1,7 @@
 function validation() {
-    const user_id = document.getElementById("user_id").value;
-    const user_phone = document.getElementById("phoneinput").value;
+    const user_id = document.querySelector("#user_id").value;
+    const user_phone = document.querySelector("#user_phone").value;
+    console.log(user_phone)
 
     const data = {
         user_id,
@@ -19,7 +20,7 @@ function validation() {
                 if (document.getElementById("authentication")) {
                     document.getElementById("authentication").readOnly = false;
                 }
-                alert('')
+                alert('이메일을 확인해주세요')
             }
             else {
                 response.json().then(function (data) {

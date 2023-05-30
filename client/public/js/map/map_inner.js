@@ -1,75 +1,56 @@
 // 이부분으로 사용
 const search_bar = document.querySelector('#search-bar')
 
+
 search_bar.addEventListener('change', (e) => {
     const place = e.target.value;
     console.log(place)
 
+    async function getData() {
+        try {
+            const response = await fetch('https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-    const url = `http://openapi.seoul.go.kr:8088/4d66634f6a776c7436315456716566/xml/citydata/1/5/${place}`;
-
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-
-            // modal창 id 셀렉해오기
-            const weather_desc = document.querySelector('#weather_desc')
-            const road_desc = document.querySelector('#road_desc')
-            const people_desc = document.querySelector('#people_desc')
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(data, "text/xml");
-
-            // console.log(xmlDoc);
-            // XML을 파싱하여 원하는 데이터 추출
-            const items = xmlDoc.getElementsByTagName("CITYDATA");
+            if (response.ok) {
+                const data = await response.json();
+                let filteredData = data.filter(item => item.AREA_NM === place);
+                filteredData = filteredData[0]
 
 
+                const weather_desc = document.querySelector('#weather_desc')
+                const road_desc = document.querySelector('#road_desc')
+                const people_desc = document.querySelector('#people_desc')
 
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
-                const weather = item.getElementsByTagName("WEATHER_STTS");
-                const road = item.getElementsByTagName("ROAD_TRAFFIC_STTS");
-                const people = item.getElementsByTagName("LIVE_PPLTN_STTS");
+                //  이렇게 데이터 가져오면 됨
+                const weather_temp = filteredData.weather_temp;
+                const ROAD_TRAFFIC_STTS = filteredData.ROAD_TRAFFIC_STTS
+                const LIVE_PPLTN_STTS = filteredData.AREA_CONGEST_LVL
 
-
-                // 파싱
-                const weather_temp = weather[0].getElementsByTagName('TEMP')[0].textContent
-                const ROAD_TRAFFIC_STTS = road[0].getElementsByTagName('ROAD_TRAFFIC_IDX')[0].textContent
-                const LIVE_PPLTN_STTS = people[0].getElementsByTagName('AREA_CONGEST_LVL')[0].textContent
-
-                // 간단히 보기에 넣기
+                // 간단히 보기에 넣음
                 weather_desc.innerHTML = weather_temp
                 road_desc.innerHTML = ROAD_TRAFFIC_STTS
                 people_desc.innerHTML = LIVE_PPLTN_STTS
 
 
-                // 자세히 보기 div가져오기
-
-                // 날씨 입력
                 const wt_des = document.querySelector('#wt_des')
                 const wt_rain = document.querySelector('#wt_rain')
                 const wt_rain_des = document.querySelector('#wt_rain_des')
 
-                // 파싱한 값들
-                /*
-                        MAX_TEMP 최고온도
-                        MIN_TEMP 최저온도
-                        HUMIDITY 습도
-                        PRECIPITATION 강수량
-                        RAIN_CHANCE 강수확률
-                        PCP_MSG 강수관련 메세지
-                 */
-                // 1번 div
-                const MAX_TEMP = weather[0].getElementsByTagName('MAX_TEMP')[0].textContent
-                const MIN_TEMP = weather[0].getElementsByTagName('MIN_TEMP')[0].textContent
+                const MAX_TEMP = filteredData.MAX_TEMP;
+                const MIN_TEMP = filteredData.MIN_TEMP;
 
-                // 2번 div
-                const HUMIDITY = weather[0].getElementsByTagName('HUMIDITY')[0].textContent
-                const PRECIPITATION = weather[0].getElementsByTagName('PRECIPITATION')[0].textContent
-                const RAIN_CHANCE = weather[0].getElementsByTagName('RAIN_CHANCE')[0].textContent
 
-                // 3번째 줄 div
-                const PCP_MSG = weather[0].getElementsByTagName('PCP_MSG')[0].textContent
+
+                const HUMIDITY = filteredData.HUMIDITY;
+                const PRECIPITATION = filteredData.PRECIPITATION;
+                const RAIN_CHANCE = filteredData.RAIN_CHANCE;
+
+
+                const PCP_MSG = filteredData.PCP_MSG;
 
                 // 날씨에 넣기
                 // 1번
@@ -79,28 +60,24 @@ search_bar.addEventListener('change', (e) => {
                 // 3번
                 wt_rain_des.innerHTML = PCP_MSG
 
+                // 날씨 끝
 
-                // 인구 혼잡도 시작
+
+                // 인구혼잡도 시작
                 const live_people = document.querySelector('#live_people')
                 const live_msg = document.querySelector('#live_msg')
                 const live_tb = document.querySelector('#live_tb')
 
+                //                 // 파싱
 
+                const AREA_CONGEST_LVL = filteredData.AREA_CONGEST_LVL;
+                const AREA_CONGEST_MSG = filteredData.AREA_CONGEST_MSG;
+                const AREA_PPLTN_MAX = filteredData.AREA_PPLTN_MAX;
 
-
-                // 파싱
-                const AREA_CONGEST_LVL = people[0].getElementsByTagName('AREA_CONGEST_LVL')[0].textContent
-
-                const AREA_CONGEST_MSG = people[0].getElementsByTagName('AREA_CONGEST_MSG')[0].textContent
-
-                const AREA_PPLTN_MAX = people[0].getElementsByTagName('AREA_PPLTN_MAX')[0].textContent
-                const NON_RESNT_PPLTN_RATE = people[0].getElementsByTagName('NON_RESNT_PPLTN_RATE')[0].textContent
-
-                //  값 대입하기
+                //                 //  값 대입하기
                 live_people.innerHTML = AREA_CONGEST_LVL
                 live_msg.innerHTML = AREA_CONGEST_MSG
-                live_tb.innerHTML = `${AREA_PPLTN_MAX}명 / ${NON_RESNT_PPLTN_RATE}%`
-
+                live_tb.innerHTML = `${AREA_PPLTN_MAX}명`
 
 
                 // 도로상황 시작
@@ -109,89 +86,75 @@ search_bar.addEventListener('change', (e) => {
                 const road_spd = document.querySelector('#road_spd')
 
 
-                // 파싱
-                // 도로 혼잡도는 이미 있음
-                // const ROAD_TRAFFIC_STTS = road[0].getElementsByTagName('ROAD_TRAFFIC_STTS')[0].textContent
-                const ROAD_MSG = road[0].getElementsByTagName('ROAD_MSG')[0].textContent
-                const ROAD_TRAFFIC_SPD = road[0].getElementsByTagName('ROAD_TRAFFIC_SPD')[0].textContent
+                const ROAD_MSG = filteredData.ROAD_MSG;
+                const ROAD_TRAFFIC_SPD = filteredData.ROAD_TRAFFIC_SPD;
 
                 road_Traffic.innerHTML = ROAD_TRAFFIC_STTS
                 road_msg.innerHTML = ROAD_MSG
                 road_spd.innerHTML = ROAD_TRAFFIC_SPD + 'K/m'
 
+            } else {
+                console.log(response);
+                alert('잘못된 접근입니다.');
             }
-        })
-        .catch(error => {
-            console.log("데이터를 가져오는 도중 오류가 발생했습니다.", error);
-        })
-})
+        } catch (error) {
+            console.error('Error updating user', error);
+        }
+    }
 
-//  로컬스토리지에 맵 밸류가 있을 경우
+    getData();
+});
+
+
+
+
+// //  로컬스토리지에 맵 밸류가 있을 경우
 if (map_value) {
-    const url = `http://openapi.seoul.go.kr:8088/4d66634f6a776c7436315456716566/xml/citydata/1/5/${map_value}`;
+    async function getData() {
+        try {
+            const response = await fetch('https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-
-            // modal창 id 셀렉해오기
-            const weather_desc = document.querySelector('#weather_desc')
-            const road_desc = document.querySelector('#road_desc')
-            const people_desc = document.querySelector('#people_desc')
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(data, "text/xml");
-
-            // console.log(xmlDoc);
-            // XML을 파싱하여 원하는 데이터 추출
-            const items = xmlDoc.getElementsByTagName("CITYDATA");
+            if (response.ok) {
+                const data = await response.json();
+                let filteredData = data.filter(item => item.AREA_NM === map_value);
+                filteredData = filteredData[0]
 
 
+                const weather_desc = document.querySelector('#weather_desc')
+                const road_desc = document.querySelector('#road_desc')
+                const people_desc = document.querySelector('#people_desc')
 
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
-                const weather = item.getElementsByTagName("WEATHER_STTS");
-                const road = item.getElementsByTagName("ROAD_TRAFFIC_STTS");
-                const people = item.getElementsByTagName("LIVE_PPLTN_STTS");
+                //  이렇게 데이터 가져오면 됨
+                const weather_temp = filteredData.weather_temp;
+                const ROAD_TRAFFIC_STTS = filteredData.ROAD_TRAFFIC_STTS
+                const LIVE_PPLTN_STTS = filteredData.AREA_CONGEST_LVL
 
-
-                // 파싱
-                const weather_temp = weather[0].getElementsByTagName('TEMP')[0].textContent
-                const ROAD_TRAFFIC_STTS = road[0].getElementsByTagName('ROAD_TRAFFIC_IDX')[0].textContent
-                const LIVE_PPLTN_STTS = people[0].getElementsByTagName('AREA_CONGEST_LVL')[0].textContent
-
-                // 간단히 보기에 넣기
+                // 간단히 보기에 넣음
                 weather_desc.innerHTML = weather_temp
                 road_desc.innerHTML = ROAD_TRAFFIC_STTS
                 people_desc.innerHTML = LIVE_PPLTN_STTS
 
 
-                // 자세히 보기 div가져오기
-
-                // 날씨 입력
                 const wt_des = document.querySelector('#wt_des')
                 const wt_rain = document.querySelector('#wt_rain')
                 const wt_rain_des = document.querySelector('#wt_rain_des')
 
-                // 파싱한 값들
-                /*
-                        MAX_TEMP 최고온도
-                        MIN_TEMP 최저온도
-                        HUMIDITY 습도
-                        PRECIPITATION 강수량
-                        RAIN_CHANCE 강수확률
-                        PCP_MSG 강수관련 메세지
-                 */
-                // 1번 div
-                const MAX_TEMP = weather[0].getElementsByTagName('MAX_TEMP')[0].textContent
-                const MIN_TEMP = weather[0].getElementsByTagName('MIN_TEMP')[0].textContent
+                const MAX_TEMP = filteredData.MAX_TEMP;
+                const MIN_TEMP = filteredData.MIN_TEMP;
 
-                // 2번 div
-                const HUMIDITY = weather[0].getElementsByTagName('HUMIDITY')[0].textContent
-                const PRECIPITATION = weather[0].getElementsByTagName('PRECIPITATION')[0].textContent
-                const RAIN_CHANCE = weather[0].getElementsByTagName('RAIN_CHANCE')[0].textContent
 
-                // 3번째 줄 div
-                const PCP_MSG = weather[0].getElementsByTagName('PCP_MSG')[0].textContent
+
+                const HUMIDITY = filteredData.HUMIDITY;
+                const PRECIPITATION = filteredData.PRECIPITATION;
+                const RAIN_CHANCE = filteredData.RAIN_CHANCE;
+
+
+                const PCP_MSG = filteredData.PCP_MSG;
 
                 // 날씨에 넣기
                 // 1번
@@ -201,28 +164,24 @@ if (map_value) {
                 // 3번
                 wt_rain_des.innerHTML = PCP_MSG
 
+                // 날씨 끝
 
-                // 인구 혼잡도 시작
+
+                // 인구혼잡도 시작
                 const live_people = document.querySelector('#live_people')
                 const live_msg = document.querySelector('#live_msg')
                 const live_tb = document.querySelector('#live_tb')
 
+                //                 // 파싱
 
+                const AREA_CONGEST_LVL = filteredData.AREA_CONGEST_LVL;
+                const AREA_CONGEST_MSG = filteredData.AREA_CONGEST_MSG;
+                const AREA_PPLTN_MAX = filteredData.AREA_PPLTN_MAX;
 
-
-                // 파싱
-                const AREA_CONGEST_LVL = people[0].getElementsByTagName('AREA_CONGEST_LVL')[0].textContent
-
-                const AREA_CONGEST_MSG = people[0].getElementsByTagName('AREA_CONGEST_MSG')[0].textContent
-
-                const AREA_PPLTN_MAX = people[0].getElementsByTagName('AREA_PPLTN_MAX')[0].textContent
-                const NON_RESNT_PPLTN_RATE = people[0].getElementsByTagName('NON_RESNT_PPLTN_RATE')[0].textContent
-
-                //  값 대입하기
+                //                 //  값 대입하기
                 live_people.innerHTML = AREA_CONGEST_LVL
                 live_msg.innerHTML = AREA_CONGEST_MSG
-                live_tb.innerHTML = `${AREA_PPLTN_MAX}명 / ${NON_RESNT_PPLTN_RATE}%`
-
+                live_tb.innerHTML = `${AREA_PPLTN_MAX}명`
 
 
                 // 도로상황 시작
@@ -231,20 +190,22 @@ if (map_value) {
                 const road_spd = document.querySelector('#road_spd')
 
 
-                // 파싱
-                // 도로 혼잡도는 이미 있음
-                // const ROAD_TRAFFIC_STTS = road[0].getElementsByTagName('ROAD_TRAFFIC_STTS')[0].textContent
-                const ROAD_MSG = road[0].getElementsByTagName('ROAD_MSG')[0].textContent
-                const ROAD_TRAFFIC_SPD = road[0].getElementsByTagName('ROAD_TRAFFIC_SPD')[0].textContent
+                const ROAD_MSG = filteredData.ROAD_MSG;
+                const ROAD_TRAFFIC_SPD = filteredData.ROAD_TRAFFIC_SPD;
 
                 road_Traffic.innerHTML = ROAD_TRAFFIC_STTS
                 road_msg.innerHTML = ROAD_MSG
                 road_spd.innerHTML = ROAD_TRAFFIC_SPD + 'K/m'
 
+            } else {
+                console.log(response);
+                alert('잘못된 접근입니다.');
             }
-        })
-        .catch(error => {
-            console.log("데이터를 가져오는 도중 오류가 발생했습니다.", error);
-        })
+        } catch (error) {
+            console.error('Error updating user', error);
+        }
+    }
+
+    getData();
     window.localStorage.removeItem('map_value')
 }

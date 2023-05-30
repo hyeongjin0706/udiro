@@ -135,6 +135,7 @@ export async function dataSave() {
 
                 // Data 모델에 해당하는 데이터 생성하기 (sequelize의 create 메소드 사용)
                 await Data.update({
+                    idx: idx,
                     AREA_NM: AREA_NM,
                     AREA_PPLTN_MAX: AREA_PPLTN_MAX,
                     weather_temp: weather_temp,
@@ -151,7 +152,7 @@ export async function dataSave() {
                     ROAD_MSG: ROAD_MSG,
                     ROAD_TRAFFIC_SPD: ROAD_TRAFFIC_SPD,
                     NON_RESNT_PPLTN_RATE: NON_RESNT_PPLTN_RATE
-                }, { where: { idx: idx } })
+                }, { where: { idx: Data.idx } })
                     .then((result) => {
                         console.log('데이터 업데이트 성공:', result);
                     })
@@ -169,10 +170,10 @@ export async function dataSave() {
 
 
 
-setInterval(async () => {
-    await dataSave();
-    console.log('data업데이트 완료')
-}, 600000);
+// setInterval(async () => {
+await dataSave();
+//     console.log('data업데이트 완료')
+// }, 600000);
 
 
 

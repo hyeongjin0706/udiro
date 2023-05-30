@@ -57,6 +57,7 @@ let place_slide = 0
 const peopleNum = document.querySelector('#peopleNum');
 const placeData = [];
 
+
 async function getData() {
     try {
         const response = await fetch('https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/', {
@@ -75,6 +76,7 @@ async function getData() {
             const dataList = `${item.AREA_NM} ${item.AREA_PPLTN_MAX}명<br>`;
             peopleNum.innerHTML = dataList;
             index += 1;
+
             const timer = setInterval(() => {
                 if (index === data.length) {
                     clearInterval(timer);
@@ -99,6 +101,7 @@ async function getData() {
 }
 
 getData();
+
 
 
 
