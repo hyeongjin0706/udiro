@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>장소페이지</title>
     <link rel="stylesheet" href="../public/css/culture3.css">
     <link rel="stylesheet" href="../../css/culture/culture.css">
@@ -14,8 +13,6 @@
     <script defer src="../../js/culture/culture.js" defer></script>
     <script src="../../js/culture/place.js" defer></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" href="../../css/token.css">
-    <script src="../../js/header.js" defer></script>
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440d4850306225a19c1ade5724a9c73d&libraries=services"></script>
 </head>
@@ -36,11 +33,8 @@
         </ul>
         <!-- 헤더 메뉴 끝 -->
         <!-- 로그인, 회원가입 -->
-
         <div id="login" class="login__signUp">로그인</div>
-        <div id="mypage" class="login__signUp noshow">마이페이지</div>
         <div id="signUp" class="login__signUp">회원가입</div>
-        <div id="logout" class="login__signUp noshow">로그아웃</div>
         <!-- 로그인, 회원가입 끝 -->
     </header>
     <!-- 헤더 끝 -->
@@ -161,7 +155,7 @@
                 </script>`;
             </section>
             <div class="list-btn" style="text-align:center;">
-                <a href="http://127.0.0.1:5501/client/culture/culture_main.html">목록으로</a>
+                <a href="http://localhost:9000/culture/main">목록으로</a>
             </div>
         </div>
         <div id="centerGo"></div>

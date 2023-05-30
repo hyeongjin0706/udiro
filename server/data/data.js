@@ -73,7 +73,11 @@ export const Data = sequelize.define(
         ROAD_TRAFFIC_SPD: {
             type: DataTypes.TEXT,
             allowNull: true,
-        }
+        },
+        NON_RESNT_PPLTN_RATE: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
     },
     {
         timestamps: false,
@@ -132,8 +136,6 @@ export async function dataSave() {
                 const NON_RESNT_PPLTN_RATE = people[0].getElementsByTagName('NON_RESNT_PPLTN_RATE')[0].textContent
 
                 console.log('데이터파싱완')
-                console.log(Data)
-
                 // Data 모델에 해당하는 데이터 생성하기 (sequelize의 create 메소드 사용)
                 await Data.update({
                     AREA_NM: AREA_NM,
@@ -152,7 +154,7 @@ export async function dataSave() {
                     ROAD_MSG: ROAD_MSG,
                     ROAD_TRAFFIC_SPD: ROAD_TRAFFIC_SPD,
                     NON_RESNT_PPLTN_RATE: NON_RESNT_PPLTN_RATE
-                }, { where: { idx: Data.idx } })  // <= 이 부분 수정
+                }, { where: { idx: Data.idx } })
                     .then((result) => {
                         console.log('데이터 업데이트 성공:', result);
                     })
@@ -160,6 +162,7 @@ export async function dataSave() {
                         console.error('데이터 업데이트 중 실패:', error);
                     });
             }
+
         }));
     } catch (error) {
         console.error('데이터를 가져오는 도중 오류가 발생했습니다.', error);

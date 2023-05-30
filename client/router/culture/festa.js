@@ -3,7 +3,7 @@ import express from 'express';
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render("./culture/culture_festa.ejs");
+    res.render("/culture_festa.ejs");
 });
 // // GET
 // router.get('/', festaController.getFestas);

@@ -1,4 +1,4 @@
-import SQ from 'sequelize';
+import SQ, { Sequelize } from 'sequelize';
 import { sequelize } from '../../db/database.js';
 
 const DataTypes = SQ.DataTypes;
@@ -123,15 +123,38 @@ const ORDER_DESC = {
 export async function getAll() {
     return culture_place.findAll({ ...ORDER_DESC });
 }
-// 수정 -> 필터 포함 시 날짜, 지역, 카테고리로 검색이므로 3가지가 필요
-export async function getAllByLocation(addr) {
+
+export async function getSearchByAddr(input) {
     return culture_place.findAll({
-        ...ORDER_DESC,
-        where: {
-        addr,
-        },
-    });
+    ...ORDER_DESC,
+    where: {
+        addr :{
+        [Sequelize.Op.like]: `%${input}%`
+        }
+    }
+    })
 }
+export async function getSearchByTitle(input) {
+    return culture_place.findAll({
+    ...ORDER_DESC,
+    where: {
+        fac_name :{
+        [Sequelize.Op.like]: `%${input}%`
+        }
+    }
+    })
+}
+export async function getSearchByDesc(input) {
+    return culture_place.findAll({
+    ...ORDER_DESC,
+    where: {
+        FAC_DESC :{
+        [Sequelize.Op.like]: `%${input}%`
+        }
+    } 
+    })
+}
+
 export async function getAllByFac_name(fac_name) {
     return culture_place.findAll({
         ...ORDER_DESC,

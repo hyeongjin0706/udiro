@@ -1,9 +1,9 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const festanum = urlParams.get('festivalId');
+const festanum = urlParams.get('festanum');
 
 function fetchDataFesta(festanum) {
-    fetch(`http://localhost:8080/festa/${festanum}`, {
+    fetch(`http://localhost:30355/festa/${festanum}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ async function processDataFesta(data) {
     // 데이터 처리
     const festasContainer = document.querySelector('.txt-box');
     const imgContainer = document.querySelector('.img-box');
-    // const textContainer = document.querySelector('.moreview');
+    const textContainer = document.querySelector('.moreview');
 
     const text = `${data.PROGRAM}`;
     const img = `<img src="${data.MAIN_IMG}" style="background-size: cover;">`;
@@ -97,7 +97,7 @@ async function processDataFesta(data) {
 
     festasContainer.innerHTML = html;
     imgContainer.innerHTML = img;
-    // textContainer.innerHTML = text;
+    textContainer.innerHTML = text;
 }
 
 fetchDataFesta(festanum);

@@ -5,18 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>조회 좋아요 기능있는 메인페이지</title>
     <link rel="icon" type="image/png" href="../../../assets/images/logo/udiro_logo_1.png">
     <link rel="stylesheet" href="../public/css/culture3.css">
     <link rel="stylesheet" href="../../css/culture/culture.css">
-    <link rel="stylesheet" href="../../css/publicPost.css">
     <link rel="stylesheet" href="../../css/public.css">
+    <link rel="stylesheet" href="../../css/publicPost.css">
     <script defer src="../../js/culture/culture.js" defer></script>
     <script src="../../js/culture/culture_main.js" defer></script>
-    <link rel="stylesheet" href="../../css/token.css">
-    <script src="../../js/header.js" defer></script>
-    <script src="../../js/sidebar.js" defer></script>
 </head>
 
 <body>
@@ -36,11 +32,8 @@
         </ul>
         <!-- 헤더 메뉴 끝 -->
         <!-- 로그인, 회원가입 -->
-
         <div id="login" class="login__signUp">로그인</div>
-        <div id="mypage" class="login__signUp noshow">마이페이지</div>
         <div id="signUp" class="login__signUp">회원가입</div>
-        <div id="logout" class="login__signUp noshow">로그아웃</div>
         <!-- 로그인, 회원가입 끝 -->
     </header>
     <!-- 헤더 끝 -->
@@ -49,7 +42,7 @@
         <!-- 사이드 바 -->
         <div id="side__bar">
             <ul id="side__bar__ul">
-                <li class="side__bar__li sidebar__bigMenu">마이페이지</li>
+                <li class="side__bar__li sidebar__bigMenu">문화</li>
                 <li class="side__bar__li sidebar__midMenu">지도</li>
                 <hr>
                 <br>
@@ -182,19 +175,19 @@
                 function setPlaceholder(selectedValue) {
                     var inputElement = document.getElementById("inputField");
 
-                    if (selectedValue === "지역") {
-                        inputElement.placeholder = "지역을 입력하세요";
+                    if (selectedValue === "guname") {
+                        inputElement.placeholder = "지역을 입력하세요 ex) 강남구";
                         inputElement.type = "text";
                         hideDatepickers();
-                    } else if (selectedValue === "제목") {
+                    } else if (selectedValue === "title") {
                         inputElement.placeholder = "제목을 입력하세요";
                         inputElement.type = "text";
                         hideDatepickers();
-                    } else if (selectedValue === "내용") {
+                    } else if (selectedValue === "content") {
                         inputElement.placeholder = "내용을 입력하세요";
                         inputElement.type = "text";
                         hideDatepickers();
-                    } else if (selectedValue === "기간") {
+                    } else if (selectedValue === "term") {
                         inputElement.placeholder = "";
                         inputElement.type = "hidden";
                         showDatepickers();
@@ -223,23 +216,25 @@
                 <tbody>
                     <tr>
                         <td class="lengthlarger">
-                            <select name="searchregion" style="width:10%; height:50%; float:left; left:30px; ">
-                                <option value="전체">전체</option>
-                                <option value="행사">행사</option>
-                                <option value="장소">장소</option>
+                            <select name="searchCategory" id="filter1"
+                                style="width:10%; height:50%; float:left; left:30px; ">
+                                <option value="all">전체</option>
+                                <option value="festa">행사</option>
+                                <option value="place">장소</option>
                             </select>
-                            <select onchange="setPlaceholder(this.value)"
+                            <select name="searchPurpose" onchange="setPlaceholder(this.value)" id="filter2"
                                 style="width:15%; height:50%; float:left; left:70px">
-                                <option value="지역" name="지역">지역</option>
-                                <option value="제목" name="제목">제목</option>
-                                <option value="내용" name="내용">내용</option>
-                                <option value="기간" name="기간">기간</option>
+                                <option value="guname" name="지역">지역</option>
+                                <option value="title" name="제목">제목</option>
+                                <option value="content" name="내용">내용</option>
+                                <option value="term" name="기간">기간</option>
                             </select>
                             <input type="text" id="inputField" style="width:15%; height:50%; width:500px;">
                             <input type="text" id="datepicker1" placeholder="시작 날짜"
                                 style="width:15%; height:50%; width:250px; right:20px;">
                             <input type="text" id="datepicker2" placeholder="종료 날짜"
                                 style="width:15%; height:50%; width:250px; left:20px;">
+                            <button type="button" class="needblack" id="searchbar2">검색</button>
                         </td>
                     </tr>
                 </tbody>
@@ -251,7 +246,7 @@
             <div class="performancehead" id="culture_festa">
                 <div class="event_festival">
                     <div class="heading">행사</div>
-                    <div class="showMore" id="festa_more"><a href="./culture_festa.html">더보기</a></div>
+                    <div class="showMore" id="festa_more"><a href="https://port-0-udiro-client-dcse2bli92yw8t.sel4.cloudtype.app/culture/festa">이동</a></div>
                 </div>
                 <div class="festival__container">
                 </div>
@@ -260,7 +255,9 @@
             <div class="performancehead" id="culture_place">
                 <div class="event_place">
                     <div class="heading">장소</div>
-                    <div class="showMore" id="place_more"><a id="cplce" href="./culture_place.html">더보기</a></div>
+                    <div class="showMore" id="place_more"><a id="cplce"
+                            href="https://port-0-udiro-client-dcse2bli92yw8t.sel4.cloudtype.app/culture/place">더보기</a>
+                    </div>
                 </div>
                 <div class="place__container">
                 </div>
@@ -270,8 +267,8 @@
         <!-- 전체 컨테이너 끝 -->
         <div id="centerGo"></div>
     </div>
-
-    <script src="../../js/culture/culture.js"></script>
+    <script src="../public/js/location/header2.js"></script>
+    <script src="./culture.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 function fetchDataFesta(festanum) {
-    fetch(`http://localhost:8080/festa/${festanum}`, {
+    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa/${festanum}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -25,8 +25,7 @@ function processDataAllf(data, festanum) {
     festivalsContainer.appendChild(festivalElement);
     festivalElement.addEventListener('click', function (event) {
         const festivalId = event.target.id;
-        const url = './event/event.html?festivalId=' + festivalId;
-        window.location.href = url;
+        window.location.href = `./culture/culture_festa/${festanum}`;
     });
 
     // 장소 이미지 요소 생성
@@ -66,4 +65,25 @@ function processDataAllf(data, festanum) {
 
 for (let i = 1; i <= 100; i++) {
     fetchDataFesta(i);
+}
+
+
+
+function search() {
+    const puropose = document.getElementById("puropose").value
+    const input = document.getElementById("inputField").value
+
+    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa?purpose=${puropose}&input=${input}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((error) => {
+            console.error('ERROR', error);
+        });
 }

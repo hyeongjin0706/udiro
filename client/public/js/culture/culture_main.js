@@ -4,7 +4,7 @@ for (let i = 1; i <= 10; i++) {
 }
 
 function fetchDataFesta(festanum) {
-    fetch(`http://localhost:8080/festa/${festanum}`, {
+    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa/${festanum}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ function fetchDataFesta(festanum) {
 }
 
 function fetchDataPlace(placenum) {
-    fetch(`http://localhost:8080/place/${placenum}`, {
+    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/place/${placenum}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -47,8 +47,8 @@ async function processDataAllf(data, festanum) {
     festivalsContainer.appendChild(festivalElement);
     festivalElement.addEventListener('click', function (event) {
         const festivalId = event.target.id;
-        console.log(festivalId)
-        const url = './event/event.html?festivalId=' + festivalId;
+        console.log(festivalId);
+        const url = `https://port-0-udiro-client-dcse2bli92yw8t.sel4.cloudtype.app/culture/festa/${festanum}`;
         window.location.href = url;
     });
 
@@ -56,24 +56,24 @@ async function processDataAllf(data, festanum) {
     const imgElement = document.createElement('img');
     imgElement.id = festanum;
     imgElement.src = data.MAIN_IMG;
-    await festivalElement.appendChild(imgElement);
+    festivalElement.appendChild(imgElement);
 
     // 텍스트 요소 생성
     const txtElement = document.createElement('div');
     txtElement.className = 'txt';
-    await festivalElement.appendChild(txtElement);
+    festivalElement.appendChild(txtElement);
 
     const titleElement = document.createElement('h2');
     titleElement.textContent = data.TITLE;
-    await txtElement.appendChild(titleElement);
+    txtElement.appendChild(titleElement);
 
     const fplaceElement = document.createElement('span');
     fplaceElement.textContent = data.PLACE;
-    await txtElement.appendChild(fplaceElement);
+    txtElement.appendChild(fplaceElement);
 
     const dateElement = document.createElement('div');
     dateElement.className = 'date';
-    await txtElement.appendChild(dateElement);
+    txtElement.appendChild(dateElement);
 
     const startDate = new Date(data.STRTDATE);
     const formattedStartDate = startDate.toISOString().split('T')[0];
@@ -97,9 +97,7 @@ async function processDataAll(data, placenum) {
     PlaceElement.className = 'place_image';
     placesContainer.appendChild(PlaceElement);
     PlaceElement.addEventListener('click', function (event) {
-        const placeId = event.target.id;
-        console.log(placeId);
-        const url = './place/place.html?placeId=' + placeId;
+        const url = `https://port-0-udiro-client-dcse2bli92yw8t.sel4.cloudtype.app/culture/place/${placenum}`;
         window.location.href = url;
     });
 
@@ -107,22 +105,22 @@ async function processDataAll(data, placenum) {
     const imgElement = document.createElement('img');
     imgElement.id = placenum;
     imgElement.src = data.MAIN_IMG;
-    await PlaceElement.appendChild(imgElement);
+    PlaceElement.appendChild(imgElement);
 
     // 텍스트 요소 생성
     const txtElement = document.createElement('div');
     txtElement.className = 'txt';
-    await PlaceElement.appendChild(txtElement);
+    PlaceElement.appendChild(txtElement);
 
     const titleElement = document.createElement('h2');
     titleElement.textContent = data.FAC_NAME;
-    await txtElement.appendChild(titleElement);
+    txtElement.appendChild(titleElement);
 
     const addrElement = document.createElement('div');
     addrElement.className = 'addr';
-    await txtElement.appendChild(addrElement);
+    txtElement.appendChild(addrElement);
 
     const addressElement = document.createElement('span');
     addressElement.textContent = data.ADDR;
-    await txtElement.appendChild(addressElement);
+    txtElement.appendChild(addressElement);
 }

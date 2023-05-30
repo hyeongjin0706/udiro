@@ -1,10 +1,30 @@
 import * as placeRepository from '../../data/culture/place.js';
 // 전체
 export async function getPlaces(req, res) {
-    const fac_name = req.query.fac_name;
-    const data = await (fac_name
-        ? placeRepository.getAllByFac_name(fac_name)
-        : placeRepository.getAll());
+    const purpose = req.query.purpose;
+    const input = req.query.input;
+    let data;
+
+    if (purpose && input) {
+    switch (purpose) {
+        case "guname":
+        data = await placeRepository.getSearchByAddr(input);
+        break;
+        case "title":
+        data = await placeRepository.getSearchByTitle(input);
+        
+        break;
+        case "program":
+        data = await placeRepository.getSearchByDesc(input);
+        break;
+    
+        default:
+        break;
+        }
+    }else{
+    data = await placeRepository.getAll();
+    }
+
     res.status(200).json(data);
 }
 // 개별

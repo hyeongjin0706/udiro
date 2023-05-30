@@ -3,14 +3,11 @@ import * as placeController from '../../controller/culture/place.js';
 
 const router = express.Router();
 
-
 // GET
 router.get('/', placeController.getPlaces);
 
 // GET
 router.get('/:place_NUM', placeController.getPlace);
-
-router.get('/:fac_name', placeController.getPlaceByFac_name);
 
 // POST
 router.post('/', placeController.CreatePlace);

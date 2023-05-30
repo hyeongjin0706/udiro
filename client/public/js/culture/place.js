@@ -3,7 +3,7 @@ const urlParams = new URLSearchParams(queryString);
 const placenum = urlParams.get('placeId');
 
 function fetchDataPlace(placenum) {
-  fetch(`http://localhost:8080/place/${placenum}`, {
+  fetch(`http://localhost:30355/place/${placenum}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
