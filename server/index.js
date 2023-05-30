@@ -7,6 +7,8 @@ import mainRouter from "./router/main.js"
 import { config } from "./config.js";
 import { sequelize } from "./db/database.js";
 import mypageRouter from "./router/mypage.js"
+import { dataSave } from "./data/data.js"
+// import { restroomdataSave } from "./data/restroom.js"
 const app = express();
 
 const corsOption = {
@@ -22,6 +24,7 @@ app.use("/auth", authRouter);
 app.use('/mypage', mypageRouter)
 app.use('/', mainRouter);
 app.use('/culture', cultureRouter);
+
 
 app.use((req, res, next) => {
     res.sendStatus(404);

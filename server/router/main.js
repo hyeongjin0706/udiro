@@ -8,15 +8,7 @@ import * as mainAuth from '../controller/auth.js'
 const router = express.Router();
 
 // 메인페이지
-router.get('/', noLoginme, mainController.getAll);
-router.post('/')
+router.get('/', mainController.getAll);
 
-
-
-// router.get('/map');
-
-// router.get('/culture');
-
-// router.get('/me', isAuth, authController.me);
 
 export default router;
