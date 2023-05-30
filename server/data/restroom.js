@@ -1,19 +1,13 @@
 import SQ from 'sequelize';
 import { sequelize } from '../db/database.js';
 import { DOMParser } from 'xmldom';
+import fetch from 'node-fetch';
 
 const DataTypes = SQ.DataTypes;
 
-// 데이터베이스 생성
 export const Restroom = sequelize.define(
-    'restroom',
+    'Restroom',
     {
-        idx: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            allowNull: false,
-            primaryKey: true,
-        },
         name: {
             type: DataTypes.TEXT,
             allowNull: false,
@@ -26,56 +20,49 @@ export const Restroom = sequelize.define(
             type: DataTypes.FLOAT,
             allowNull: true,
         },
-
     },
     {
         timestamps: false,
     }
 );
-// Data 모델과 연결된 데이터베이스 테이블이 존재하는지 확인하고 없다면 생성
+
 Restroom.sync({ force: false })
     .then(() => {
         console.log('restroom 모델과 연결된 데이터베이스 테이블이 성공적으로 생성되었습니다.');
+        restroomdataSave();
     })
     .catch((error) => {
-        console.error('Data 모델과 연결된 데이터베이스 테이블 생성 중 에러 발생: ', error);
+        console.error('restroom 모델과 연결된 데이터베이스 테이블 생성 중 에러 발생: ', error);
     });
 
 export async function restroomdataSave() {
-    console.log("실행중");
     try {
-        for (var i = 0; i < 201; i++) {
-            const url = `http://openAPI.seoul.go.kr:8088/4550596c7365687731323346776b5a6f/xml/SearchPublicToiletPOIService/1/200/`;
-            const response = await fetch(url);
-            if (response.status === 200) {
-                var parser = new DOMParser();
-                var xmlDoc = parser.parseFromString(response, 'text/xml');
-                console.log(xmlDoc['SearchPublicToiletPOIService'])
-                var rows = xmlDoc.getElementsByTagName('row');
-
-                const name = rows[i].getElementsByTagName('FNAME')[0].textContent
-                const lat = rows[i].getElementsByTagName('Y_WGS84')[0].textContent
-                const lng = rows[i].getElementsByTagName('X_WGS84')[0].textContent
-
-                console.log('데이터파싱완')
-
-                // Data 모델에 해당하는 데이터 생성하기 (sequelize의 create 메소드 사용)
-                await Restroom.create({
-                    name: name,
-                    lat: lat,
-                    lng: lng,
-                })
-                    .then((result) => {
-                        console.log('데이터 업데이트 성공:', result);
-                    })
-                    .catch((error) => {
-                        console.error('데이터 업데이트 중 실패:', error);
-                    });
-            }
+        const restroomCount = await Restroom.count();
+        if (restroomCount > 0) {
+            console.log("이미 데이터베이스에 화장실 정보가 저장되어 있습니다.");
+            return;
         }
-    }
-    catch (error) {
-        console.error('restroomdataSave 함수 오류:', error);
+
+        const response = await fetch('http://openAPI.seoul.go.kr:8088/4550596c7365687731323346776b5a6f/xml/SearchPublicToiletPOIService/1/200/');
+        const data = await response.text();
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(data, 'text/xml');
+        var rows = xmlDoc.getElementsByTagName('row');
+        var restrooms = [];
+
+        for (var i = 0; i < rows.length; i++) {
+            var restroom = {
+                name: rows[i].getElementsByTagName('FNAME')[0].textContent,
+                lat: parseFloat(rows[i].getElementsByTagName('Y_WGS84')[0].textContent),
+                lng: parseFloat(rows[i].getElementsByTagName('X_WGS84')[0].textContent),
+            };
+            restrooms.push(restroom);
+        }
+
+        await Restroom.bulkCreate(restrooms);
+        console.log('데이터 저장 완료');
+    } catch (error) {
+        console.error('데이터 저장 중 오류 발생:', error);
     }
 }
-await restroomdataSave();
+

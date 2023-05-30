@@ -147,15 +147,31 @@ async function fetchAllPopulationDensities(tourList) {
 
 // 최대 인원수
 async function fetchPopulationDensity(place) {
-    const url = `http://openapi.seoul.go.kr:8088/4d66634f6a776c7436315456716566/xml/citydata/1/5/${place}`;
-    const response = await fetch(url);
-    const data = await response.text();
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(data, "text/xml");
-    const items = xmlDoc.getElementsByTagName("CITYDATA");
-    const item = items[0];
-    const people = item.getElementsByTagName("LIVE_PPLTN_STTS");
-    return people[0].getElementsByTagName("AREA_CONGEST_LVL")[0].textContent;
+    try {
+        const response = await fetch('https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            let filteredData = data.filter(item => item.AREA_NM === place);
+            filteredData = filteredData[0]
+
+
+            //  이렇게 데이터 가져오면 됨
+            const LIVE_PPLTN_STTS = filteredData.AREA_CONGEST_LVL
+
+            return LIVE_PPLTN_STTS
+        } else {
+            console.log(response);
+            alert('잘못된 접근입니다.');
+        }
+    } catch (error) {
+        console.error('Error updating user', error);
+    }
 }
 
 function createAllCircles(tourList, densities) {
@@ -165,6 +181,7 @@ function createAllCircles(tourList, densities) {
         createAnimatedCircle(position, density);
     }
 }
+
 
 
 function createAnimatedCircle(position, density) {

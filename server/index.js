@@ -7,6 +7,7 @@ import mainRouter from "./router/main.js"
 import { config } from "./config.js";
 import { sequelize } from "./db/database.js";
 import mypageRouter from "./router/mypage.js"
+import mapRouter from "./router/map.js"
 import { dataSave } from "./data/data.js"
 // import { restroomdataSave } from "./data/restroom.js"
 const app = express();
@@ -24,6 +25,7 @@ app.use("/auth", authRouter);
 app.use('/mypage', mypageRouter)
 app.use('/', mainRouter);
 app.use('/culture', cultureRouter);
+app.use('/map', mapRouter);
 
 
 app.use((req, res, next) => {
