@@ -20,7 +20,7 @@ function validation() {
                 if (document.getElementById("authentication")) {
                     document.getElementById("authentication").readOnly = false;
                 }
-                alert('이메일을 확인해주세요')
+                alert('새로운 비밀번호를 이메일로 발송해드렸습니다.')
             }
             else {
                 response.json().then(function (data) {

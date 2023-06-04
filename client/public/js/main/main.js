@@ -69,7 +69,6 @@ async function getData() {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
 
             let index = 0;
             const item = data[index];

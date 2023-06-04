@@ -20,11 +20,14 @@ sidebar_map_select.addEventListener('change', () => {
 
 
 // 토큰이 있다면 바꿔주기
-if (!token) {
+const token3 = window.localStorage.getItem('token')
+if (!token3) {
     sidbar_mypage.classList.add('noShow')
     sidbar_mypage2.classList.add('noShow')
     hr.classList.add('noShow')
     hr2.classList.add('noShow')
+} else {
+    null
 }
 
 // 사이드바 이동

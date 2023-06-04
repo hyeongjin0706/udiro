@@ -1,3 +1,6 @@
+const pathArray = window.location.pathname.split('/');
+const festanum = pathArray[pathArray.length - 1];
+
 function fetchDataFesta(festanum) {
     fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa/${festanum}`, {
         method: 'GET',
@@ -25,7 +28,7 @@ function processDataAllf(data, festanum) {
     festivalsContainer.appendChild(festivalElement);
     festivalElement.addEventListener('click', function (event) {
         const festivalId = event.target.id;
-        window.location.href = `./culture/culture_festa/${festanum}`;
+        window.location.href = `/culture/festa/${festanum}`;
     });
 
     // 장소 이미지 요소 생성

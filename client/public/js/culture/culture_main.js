@@ -47,8 +47,7 @@ async function processDataAllf(data, festanum) {
     festivalsContainer.appendChild(festivalElement);
     festivalElement.addEventListener('click', function (event) {
         const festivalId = event.target.id;
-        console.log(festivalId);
-        const url = `https://port-0-udiro-client-dcse2bli92yw8t.sel4.cloudtype.app/culture/festa/${festanum}`;
+        const url = `/culture/festa/${festanum}`;
         window.location.href = url;
     });
 
@@ -97,7 +96,7 @@ async function processDataAll(data, placenum) {
     PlaceElement.className = 'place_image';
     placesContainer.appendChild(PlaceElement);
     PlaceElement.addEventListener('click', function (event) {
-        const url = `https://port-0-udiro-client-dcse2bli92yw8t.sel4.cloudtype.app/culture/place/${placenum}`;
+        const url = `/culture/place/${placenum}`;
         window.location.href = url;
     });
 

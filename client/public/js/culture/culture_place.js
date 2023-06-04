@@ -1,9 +1,12 @@
+const pathArray = window.location.pathname.split('/');
+const festanum = pathArray[pathArray.length - 1];
+
 for (let i = 1; i <= 100; i++) {
     fetchDataPlace(i);
 }
 
 function fetchDataPlace(placenum) {
-    fetch(`http://localhost:30355/culture/place/${placenum}`, {
+    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/place/${placenum}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -30,7 +33,7 @@ function processDataAll(data, placenum) {
     PlaceElement.addEventListener('click', function (event) {
         const placeId = event.target.id;
         console.log(placeId);
-        const url = `https://port-0-udiro-client-dcse2bli92yw8t.sel4.cloudtype.app/culture/place/${placenum}`
+        const url = `/culture/place/${placenum}`
         window.location.href = url;
     });
 
@@ -62,7 +65,7 @@ function search() {
     const puropose = document.getElementById("puropose").value
     const input = document.getElementById("inputField").value
 
-    fetch(`http://localhost:30355/culture/place?purpose=${puropose}&input=${input}`, {
+    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/place?purpose=${puropose}&input=${input}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

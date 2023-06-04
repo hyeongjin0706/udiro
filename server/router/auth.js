@@ -14,6 +14,8 @@ router.post('/findpw', authController.findPw);
 
 router.get('/me', isAuth, authController.me);
 
+router.post('/newPW', authController.updatePW)
+
 
 
 

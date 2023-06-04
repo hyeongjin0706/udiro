@@ -70,7 +70,7 @@ header>ul>li {
 
 /* 로그인 회원가입 */
 .login__signUp {
-    width: 7%;
+    width: 100px;
     display: flex;
     justify-content: right;
     font-size: 14px;
@@ -82,12 +82,9 @@ header>ul>li {
     font-size: 20px;
 }
 
-#signUp {
-    margin-right: 30px;
-}
-
+#signUp,
 #logout {
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
 
@@ -110,11 +107,11 @@ header>ul>li {
     color: white;
     height: 50px;
     line-height: 50px;
-    margin-bottom: 10px;
 }
 
 .sidebar__midMenu {
     height: 30px;
+    line-height: 30px;
     text-align: center;
 }
 
@@ -140,5 +137,9 @@ header>ul>li {
 }
 
 .noShow {
-    display: none;
+    display: none !important;
+}
+
+.noshow {
+    display: none !important;
 }

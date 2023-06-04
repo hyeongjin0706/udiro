@@ -6,15 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장소페이지</title>
-    <link rel="stylesheet" href="../public/css/culture3.css">
     <link rel="stylesheet" href="../../css/culture/culture.css">
-    <link rel="stylesheet" href="../../css/public.css">
     <link rel="stylesheet" href="../../css/publicPost.css">
+    <link rel="stylesheet" href="../../css/public.css">
     <script defer src="../../js/culture/culture.js" defer></script>
     <script src="../../js/culture/place.js" defer></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default" defer></script>
     <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440d4850306225a19c1ade5724a9c73d&libraries=services"></script>
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=440d4850306225a19c1ade5724a9c73d&libraries=services" defer></script>
+    <script src="../../js/header.js" defer></script>
+    <script src="../../js/sidebar.js" defer></script>
 </head>
 
 <body>
@@ -22,10 +23,9 @@
     <header id="header" class="header">
         <!-- 헤더 로고 -->
         <div id="header__logo">
-            <img src="../../../assets/images/logo/UDiro_seoul_logo2.png" alt="" id="header__logo__img">
+            <img src="../../images/logo/UDiro_seoul_logo2.png" alt="" id="header__logo__img">
         </div>
         <!-- 헤더 로고 끝 -->
-
         <!-- 헤더 메뉴 시작 -->
         <ul id="header__menu">
             <li class="header__menu__list" id="header__menu__map">지도</li>
@@ -33,8 +33,11 @@
         </ul>
         <!-- 헤더 메뉴 끝 -->
         <!-- 로그인, 회원가입 -->
+
         <div id="login" class="login__signUp">로그인</div>
+        <div id="mypage" class="login__signUp noshow">마이페이지</div>
         <div id="signUp" class="login__signUp">회원가입</div>
+        <div id="logout" class="login__signUp noshow">로그아웃</div>
         <!-- 로그인, 회원가입 끝 -->
     </header>
     <!-- 헤더 끝 -->
@@ -155,14 +158,13 @@
                 </script>`;
             </section>
             <div class="list-btn" style="text-align:center;">
-                <a href="http://localhost:9000/culture/main">목록으로</a>
+                <a href="/culture/main">목록으로</a>
             </div>
         </div>
         <div id="centerGo"></div>
 
     </div>
     <!-- 전체 컨테이너 끝 -->
-    <script src="../../public/js/location/header2.js"></script>
 </body>
 
 </html>

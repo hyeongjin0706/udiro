@@ -126,6 +126,10 @@ body {
     height: 50px;
 }
 
+#weather_big,
+#road_big {
+    width: 80px;
+}
 
 /* 인구혼잡도 */
 

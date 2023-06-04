@@ -5,6 +5,11 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.render("./culture/culture_place.ejs");
 });
+
+
+router.get('/:place_NUM', (req, res) => {
+    res.render("./culture/place.ejs");
+});
 // // GET
 // router.get('/:place_NUM', placeController.getPlace);
 

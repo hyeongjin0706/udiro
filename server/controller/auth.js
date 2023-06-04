@@ -82,16 +82,6 @@ export async function deleteById(req, res, next) {
     res.sendStatus(204);
 };
 
-export async function updatePw(req, res, next) {
-
-    const user = await (userRepository.searchByIdHP(user_id, user_phone));
-    if (!user) {
-        return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
-    }
-
-    res.status(200).json({ token: req.token, user_id: user.user_id });
-}
-
 
 // export async function updateMypage(req, res, next) {
 //     const { user_id, user_phone, user_email, user_area } = req.body;
@@ -157,10 +147,10 @@ export async function findPw(req, res, next) {
         text: `${user.user_name}님의 새롭게 설정한 비밀번호는 [${password}]입니다.`
     });
     const hashed = await (bcrypt.hash(password, config.bcrypt.saltRound));
+    await userRepository.updatePassword(user.user_idx, hashed);
     const message = `${user.user_name}님의 메일로 새롭게 설정한 비밀번호가 발송되었습니다!`;
     return res.status(200).json({ message });
 }
-
 export async function me(req, res, next) {
     const user = await (userRepository.searchByIdx(req.user_idx));
     if (!user) {
@@ -190,4 +180,18 @@ function getRandomPW() {
         password += chars.charAt(randomIndex);
     }
     return password;
+}
+
+export async function updatePW(req, res, next) {
+    const { user_id, user_pw } = req.body;
+    const user = await (userRepository.searchById(user_id));
+    if (!user) {
+        return res.status(404).json({ message: "사용자가 존재하지 않습니다." })
+    }
+    const password = user_pw;
+    const hashed = await (bcrypt.hash(password, config.bcrypt.saltRound));
+
+    await userRepository.updatePassword(user.user_idx, hashed);
+    const message = `${user.user_name}님의 새롭게 설정한 비밀번호가 저장되었습니다!`;
+    return res.status(200).json({ message });
 }

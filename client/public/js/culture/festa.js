@@ -1,9 +1,8 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const festanum = urlParams.get('festanum');
+const pathArray = window.location.pathname.split('/');
+const festanum = pathArray[pathArray.length - 1];
 
 function fetchDataFesta(festanum) {
-    fetch(`http://localhost:30355/festa/${festanum}`, {
+    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa/${festanum}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

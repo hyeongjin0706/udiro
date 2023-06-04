@@ -1,6 +1,5 @@
 const modal_big = document.querySelectorAll('.modal_big');
 const modal_small = document.querySelectorAll('.modal_small');
-console.log(modal_small)
 // 각각 클래스 이름으로 태그 다큐먼트로 가져오기
 const modals = document.querySelectorAll('.modal');
 const btnOpenPopup = document.querySelector('.btn-open-popup');
@@ -73,7 +72,7 @@ async function MK() {
         }
         const data = await response.json();
         data.forEach(function (parkingLot) {
-            var imageSrc = 'https://cdn4.iconfinder.com/data/icons/bold-purple-free-samples/32/Letters_Symbol_Restroom_Pointer_Toilet-64.png';
+            var imageSrc = 'https://thumb.ac-illust.com/5e/5e769aa4d8d59d2c09454ffed4bf8e82_t.jpeg';
             var imageSize = new kakao.maps.Size(32, 32);
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             var marker = new kakao.maps.Marker({
@@ -126,7 +125,7 @@ async function MK2() {
         }
         const data = await response.json();
         data.forEach(function (parkingLot) {
-            var imageSrc = 'https://cdn3.iconfinder.com/data/icons/solid-amenities-icon-set/64/Parking_2-512.png';
+            var imageSrc = 'https://img.icons8.com/?size=1x&id=MTocf1dYdflx&format=png';
             var imageSize = new kakao.maps.Size(32, 32);
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             var marker = new kakao.maps.Marker({

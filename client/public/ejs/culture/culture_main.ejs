@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>조회 좋아요 기능있는 메인페이지</title>
-    <link rel="icon" type="image/png" href="../../../assets/images/logo/udiro_logo_1.png">
-    <link rel="stylesheet" href="../public/css/culture3.css">
+    <link rel="icon" type="image/png" href="../../images/logo/udiro_logo_1.png">
+    <!-- <link rel="stylesheet" href="../public/css/culture3.css"> -->
     <link rel="stylesheet" href="../../css/culture/culture.css">
-    <link rel="stylesheet" href="../../css/public.css">
     <link rel="stylesheet" href="../../css/publicPost.css">
-    <script defer src="../../js/culture/culture.js" defer></script>
+    <link rel="stylesheet" href="../../css/public.css">
+    <!-- <script src="../../js/culture/culture.js" defer></script> -->
     <script src="../../js/culture/culture_main.js" defer></script>
+    <script src="../../js/header.js" defer></script>
+    <script src="../../js/sidebar.js" defer></script>
 </head>
 
 <body>
@@ -24,7 +26,6 @@
             <img src="../../images/logo/UDiro_seoul_logo2.png" alt="" id="header__logo__img">
         </div>
         <!-- 헤더 로고 끝 -->
-
         <!-- 헤더 메뉴 시작 -->
         <ul id="header__menu">
             <li class="header__menu__list" id="header__menu__map">지도</li>
@@ -32,8 +33,11 @@
         </ul>
         <!-- 헤더 메뉴 끝 -->
         <!-- 로그인, 회원가입 -->
+
         <div id="login" class="login__signUp">로그인</div>
+        <div id="mypage" class="login__signUp noshow">마이페이지</div>
         <div id="signUp" class="login__signUp">회원가입</div>
+        <div id="logout" class="login__signUp noshow">로그아웃</div>
         <!-- 로그인, 회원가입 끝 -->
     </header>
     <!-- 헤더 끝 -->
@@ -246,7 +250,8 @@
             <div class="performancehead" id="culture_festa">
                 <div class="event_festival">
                     <div class="heading">행사</div>
-                    <div class="showMore" id="festa_more"><a href="https://port-0-udiro-client-dcse2bli92yw8t.sel4.cloudtype.app/culture/festa">이동</a></div>
+                    <div class="showMore" id="festa_more"><a href="/culture/festa">더보기</a>
+                    </div>
                 </div>
                 <div class="festival__container">
                 </div>
@@ -255,8 +260,7 @@
             <div class="performancehead" id="culture_place">
                 <div class="event_place">
                     <div class="heading">장소</div>
-                    <div class="showMore" id="place_more"><a id="cplce"
-                            href="https://port-0-udiro-client-dcse2bli92yw8t.sel4.cloudtype.app/culture/place">더보기</a>
+                    <div class="showMore" id="place_more"><a id="cplce" href="/culture/place">더보기</a>
                     </div>
                 </div>
                 <div class="place__container">
@@ -267,8 +271,7 @@
         <!-- 전체 컨테이너 끝 -->
         <div id="centerGo"></div>
     </div>
-    <script src="../public/js/location/header2.js"></script>
-    <script src="./culture.js"></script>
+    <!-- <script src="../public/js/location/header2.js"></script> -->
 </body>
 
 </html>

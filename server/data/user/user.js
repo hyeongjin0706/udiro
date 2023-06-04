@@ -100,3 +100,10 @@ export async function deleteUser(user) {
         where: { user_id: user }
     });
 }
+
+export async function updatePassword(user_idx, user_pw) {
+    return User.findByPk(user_idx).then((user) => {
+        user.user_pw = user_pw;
+        user.save();
+    })
+}

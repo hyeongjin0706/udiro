@@ -39,6 +39,9 @@ search_bar.addEventListener('change', (e) => {
                 const wt_des = document.querySelector('#wt_des')
                 const wt_rain = document.querySelector('#wt_rain')
                 const wt_rain_des = document.querySelector('#wt_rain_des')
+                const weather_img = document.querySelector('#weather_now')
+                const weather_img2 = document.querySelector('#weather_big')
+
 
                 const MAX_TEMP = filteredData.MAX_TEMP;
                 const MIN_TEMP = filteredData.MIN_TEMP;
@@ -59,6 +62,15 @@ search_bar.addEventListener('change', (e) => {
                 wt_rain.innerHTML = `${HUMIDITY}%, ${PRECIPITATION}, ${RAIN_CHANCE}%`
                 // 3번
                 wt_rain_des.innerHTML = PCP_MSG
+                if (RAIN_CHANCE > '50') {
+                    weather_img.setAttribute('src', 'https://cdn0.iconfinder.com/data/icons/weather-888/32/weather_rain_rainny_drop_cloud-64.png')
+                    weather_img2.setAttribute('src', 'https://cdn0.iconfinder.com/data/icons/weather-888/32/weather_rain_rainny_drop_cloud-64.png')
+
+                } else if (PCP_MSG == '비 또는 눈 소식이 없어요.') {
+                    weather_img.setAttribute('src', 'https://cdn2.iconfinder.com/data/icons/summer-flat-11/272/summer-vacation-sun-sunlight-summer-heat-hot-64.png')
+                    weather_img2.setAttribute('src', 'https://cdn2.iconfinder.com/data/icons/summer-flat-11/272/summer-vacation-sun-sunlight-summer-heat-hot-64.png')
+
+                }
 
                 // 날씨 끝
 
@@ -157,6 +169,16 @@ if (map_value) {
                 const PCP_MSG = filteredData.PCP_MSG;
 
                 // 날씨에 넣기
+
+                if (RAIN_CHANCE > '50') {
+                    weather_img.setAttribute('src', 'https://cdn0.iconfinder.com/data/icons/weather-888/32/weather_rain_rainny_drop_cloud-64.png')
+                    weather_img2.setAttribute('src', 'https://cdn0.iconfinder.com/data/icons/weather-888/32/weather_rain_rainny_drop_cloud-64.png')
+
+                } else if (PCP_MSG == '비 또는 눈 소식이 없어요.') {
+                    weather_img.setAttribute('src', 'https://cdn2.iconfinder.com/data/icons/summer-flat-11/272/summer-vacation-sun-sunlight-summer-heat-hot-64.png')
+                    weather_img2.setAttribute('src', 'https://cdn2.iconfinder.com/data/icons/summer-flat-11/272/summer-vacation-sun-sunlight-summer-heat-hot-64.png')
+
+                }
                 // 1번
                 wt_des.innerHTML = `${MIN_TEMP}º/${MAX_TEMP}º`
                 // 2번

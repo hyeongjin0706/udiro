@@ -602,3 +602,11 @@ li {
 } */
 
 
+.showMore {
+    font-size: 14px;
+    margin-right: 15px;
+}
+
+.showMore a {
+    color: white;
+}
