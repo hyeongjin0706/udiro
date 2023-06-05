@@ -220,19 +220,18 @@
                 <tbody>
                     <tr>
                         <td class="lengthlarger">
-                            <select onchange="setPlaceholder(this.value)"
+                            <select onchange="setPlaceholder(this.value)" id="purpose"
                                 style="width:15%; height:50%; float:left; left:70px">
-                                <option value="지역" name="지역">지역</option>
-                                <option value="제목" name="제목">제목</option>
-                                <option value="내용" name="내용">내용</option>
-                                <option value="기간" name="기간">기간</option>
+                                <option value="guname" name="지역">지역</option>
+                                <option value="title" name="제목">제목</option>
+                                <option value="program" name="내용">내용</option>
                             </select>
                             <input type="text" id="inputField" style="width:15%; height:50%; width:500px;">
                             <input type="text" id="datepicker1" placeholder="시작 날짜"
                                 style="width:15%; height:50%; width:250px; right:20px;">
                             <input type="text" id="datepicker2" placeholder="종료 날짜"
                                 style="width:15%; height:50%; width:250px; left:20px;">
-                            <button type="button" class="needblack" id="searchbar2">검색</button>
+                            <button type="button" class="needblack" id="searchbar2" onclick="search()">검색</button>
                         </td>
                     </tr>
                 </tbody>

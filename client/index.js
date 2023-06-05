@@ -20,6 +20,7 @@ app.use("/map", mapRouter);
 app.use("/auth", loginRouter);
 
 app.use((req, res, next) => {
+    res.render('error.ejs')
     res.sendStatus(404)
 });
 app.use((error, req, res, next) => {

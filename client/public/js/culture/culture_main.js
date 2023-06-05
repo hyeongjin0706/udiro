@@ -4,12 +4,15 @@ for (let i = 1; i <= 10; i++) {
 }
 
 function fetchDataFesta(festanum) {
-    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa/${festanum}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+    fetch(
+        `https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa/${festanum}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    )
         .then((response) => response.json())
         .then((data) => {
             processDataAllf(data, festanum);
@@ -20,12 +23,15 @@ function fetchDataFesta(festanum) {
 }
 
 function fetchDataPlace(placenum) {
-    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/place/${placenum}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+    fetch(
+        `https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/place/${placenum}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    )
         .then((response) => response.json())
         .then((data) => {
             processDataAll(data, placenum);
@@ -122,4 +128,29 @@ async function processDataAll(data, placenum) {
     const addressElement = document.createElement('span');
     addressElement.textContent = data.ADDR;
     txtElement.appendChild(addressElement);
+}
+
+function search() {
+    const category = document.getElementById('category').value;
+    const purpose = document.getElementById('purpose').value;
+    const input = document.getElementById('inputField').value;
+
+    fetch(
+        `https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/main?category=${category}&purpose=${purpose}&input=${input}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    )
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            processDataAllf(data, festanum);
+            processDataAll(data, placenum);
+        })
+        .catch((error) => {
+            console.error('ERROR', error);
+        });
 }

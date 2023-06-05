@@ -7,14 +7,15 @@ export async function getFestas(req, res) {
 
     if (purpose && input) {
         switch (purpose) {
-            case "guname":
+            case 'guname':
                 data = await festaRepository.getSearchByguname(input);
                 break;
-            case "title":
-                data = await festaRepository.getSearchByTitle(input);
 
+            case 'title':
+                data = await festaRepository.getSearchByTitle(input);
                 break;
-            case "program":
+
+            case 'program':
                 data = await festaRepository.getSearchByprogram(input);
                 break;
 

@@ -3,7 +3,7 @@ import * as mainController from '../../controller/culture/main.js'; //
 const router = express.Router();
 
 // GET
-// router.get('/', festaController.getFestas);
+router.get('/', mainController.getFestasandPlace);
 
 // // GET
 // // num
@@ -25,4 +25,4 @@ const router = express.Router();
 // // DELETE
 // router.delete('/:festa_NUM', festaController.deleteFesta);
 
-// export default router;
+export default router;

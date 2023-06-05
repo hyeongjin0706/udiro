@@ -2,12 +2,15 @@ const pathArray = window.location.pathname.split('/');
 const festanum = pathArray[pathArray.length - 1];
 
 function fetchDataFesta(festanum) {
-    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa/${festanum}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+    fetch(
+        `https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa/${festanum}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    )
         .then((response) => response.json())
         .then((data) => {
             processDataAllf(data, festanum);
@@ -23,12 +26,12 @@ function processDataAllf(data, festanum) {
 
     // festival 요소 생성
     const festivalElement = document.createElement('div');
-    festivalElement.id = festanum;
+    festivalElement.id = data.festa_NUM;
     festivalElement.className = 'festival_image';
     festivalsContainer.appendChild(festivalElement);
     festivalElement.addEventListener('click', function (event) {
         const festivalId = event.target.id;
-        window.location.href = `/culture/festa/${festanum}`;
+        window.location.href = `/culture/festa/${data.festa_NUM}`;
     });
 
     // 장소 이미지 요소 생성
@@ -70,21 +73,28 @@ for (let i = 1; i <= 100; i++) {
     fetchDataFesta(i);
 }
 
-
-
 function search() {
-    const puropose = document.getElementById("puropose").value
-    const input = document.getElementById("inputField").value
+    const festivalsContainer = document.querySelector('.festival__container');
+    festivalsContainer.innerHTML = '';
 
-    fetch(`https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa?purpose=${puropose}&input=${input}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+    const purpose = document.getElementById('purpose').value;
+    const input = document.getElementById('inputField').value;
+
+    fetch(
+        `https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/festa?purpose=${purpose}&input=${input}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    )
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
+            data.forEach((festa, festanum) => {
+                processDataAllf(festa, festanum);
+            });
         })
         .catch((error) => {
             console.error('ERROR', error);

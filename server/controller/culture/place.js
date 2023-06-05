@@ -6,23 +6,23 @@ export async function getPlaces(req, res) {
     let data;
 
     if (purpose && input) {
-    switch (purpose) {
-        case "guname":
-        data = await placeRepository.getSearchByAddr(input);
-        break;
-        case "title":
-        data = await placeRepository.getSearchByTitle(input);
-        
-        break;
-        case "program":
-        data = await placeRepository.getSearchByDesc(input);
-        break;
-    
-        default:
-        break;
+        switch (purpose) {
+            case 'guname':
+                data = await placeRepository.getSearchByAddr(input);
+                break;
+
+            case 'title':
+                data = await placeRepository.getSearchByTitle(input);
+                break;
+            case 'program':
+                data = await placeRepository.getSearchByDesc(input);
+                break;
+
+            default:
+                break;
         }
-    }else{
-    data = await placeRepository.getAll();
+    } else {
+        data = await placeRepository.getAll();
     }
 
     res.status(200).json(data);
@@ -87,10 +87,3 @@ export async function deletePlace(req, res, next) {
     await placeRepository.remove(place_NUM);
     res.sendStatus(204);
 }
-
-
-
-
-
-
-

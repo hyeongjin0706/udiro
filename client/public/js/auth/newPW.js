@@ -21,7 +21,9 @@ function updatePW() {
                 if (document.getElementById("authentication")) {
                     document.getElementById("authentication").readOnly = false;
                 }
+                window.localStorage.clear('token')
                 alert('비밀번호변경이 완료되었습니다.')
+                window.location.href = '/auth/login'
             }
             else {
                 response.json().then(function (data) {
